@@ -7,20 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		049EB0622BC889700040FFF8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0612BC889700040FFF8 /* CardView.swift */; };
+		04C872962BC5BAF900F954DB /* HomeNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C872952BC5BAF900F954DB /* HomeNavigationStackView.swift */; };
+		04C872982BC5D59400F954DB /* HomeActionsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C872972BC5D59400F954DB /* HomeActionsStackView.swift */; };
+		04C8729B2BC5D8EE00F954DB /* HomeVerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8729A2BC5D8EE00F954DB /* HomeVerticalStackView.swift */; };
 		092098EC2BC1B0A500DAA0C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098EB2BC1B0A500DAA0C7 /* AppDelegate.swift */; };
 		092098EE2BC1B0A500DAA0C7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098ED2BC1B0A500DAA0C7 /* SceneDelegate.swift */; };
-		092098F02BC1B0A500DAA0C7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098EF2BC1B0A500DAA0C7 /* ViewController.swift */; };
+		092098F02BC1B0A500DAA0C7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098EF2BC1B0A500DAA0C7 /* HomeViewController.swift */; };
 		092098F52BC1B0A500DAA0C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 092098F42BC1B0A500DAA0C7 /* Assets.xcassets */; };
 		092098F82BC1B0A500DAA0C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 092098F62BC1B0A500DAA0C7 /* LaunchScreen.storyboard */; };
 		1E8BDB683834F305F426F5C7 /* Pods_CinephileDatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E179C2C3935EE7974B6A9D8 /* Pods_CinephileDatingApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		049EB0612BC889700040FFF8 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		04C872952BC5BAF900F954DB /* HomeNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationStackView.swift; sourceTree = "<group>"; };
+		04C872972BC5D59400F954DB /* HomeActionsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeActionsStackView.swift; sourceTree = "<group>"; };
+		04C8729A2BC5D8EE00F954DB /* HomeVerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVerticalStackView.swift; sourceTree = "<group>"; };
 		06ED4AFAC0909503CBA76E75 /* Pods-CinephileDatingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinephileDatingApp.release.xcconfig"; path = "Target Support Files/Pods-CinephileDatingApp/Pods-CinephileDatingApp.release.xcconfig"; sourceTree = "<group>"; };
 		092098E82BC1B0A500DAA0C7 /* CinephileDatingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CinephileDatingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		092098EB2BC1B0A500DAA0C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		092098ED2BC1B0A500DAA0C7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		092098EF2BC1B0A500DAA0C7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		092098EF2BC1B0A500DAA0C7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		092098F42BC1B0A500DAA0C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		092098F72BC1B0A500DAA0C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		092098F92BC1B0A500DAA0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -40,6 +48,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04C8728F2BC5BA1700F954DB /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		04C872902BC5BA2D00F954DB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		04C872912BC5BA3400F954DB /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		04C872922BC5BA4600F954DB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		04C872942BC5BA5D00F954DB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				04C872952BC5BAF900F954DB /* HomeNavigationStackView.swift */,
+				04C872972BC5D59400F954DB /* HomeActionsStackView.swift */,
+				04C8729A2BC5D8EE00F954DB /* HomeVerticalStackView.swift */,
+				049EB0612BC889700040FFF8 /* CardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		092098DF2BC1B0A500DAA0C7 = {
 			isa = PBXGroup;
 			children = (
@@ -62,58 +109,23 @@
 			isa = PBXGroup;
 			children = (
 				092098F92BC1B0A500DAA0C7 /* Info.plist */,
-				092099082BC1B2D200DAA0C7 /* Resources */,
-				092099062BC1B15F00DAA0C7 /* Models */,
-				092099052BC1B15500DAA0C7 /* Views */,
-				092099042BC1B14E00DAA0C7 /* ViewModels */,
+				04C872942BC5BA5D00F954DB /* Views */,
+				04C872922BC5BA4600F954DB /* Models */,
+				04C872912BC5BA3400F954DB /* ViewModels */,
 				092099032BC1B14B00DAA0C7 /* Controllers */,
-				092099012BC1B13B00DAA0C7 /* API */,
-				092099002BC1B13700DAA0C7 /* Utils */,
+				04C872902BC5BA2D00F954DB /* Utils */,
+				04C8728F2BC5BA1700F954DB /* API */,
+				092099082BC1B2D200DAA0C7 /* Resources */,
 			);
 			path = CinephileDatingApp;
-			sourceTree = "<group>";
-		};
-		092099002BC1B13700DAA0C7 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		092099012BC1B13B00DAA0C7 /* API */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = API;
 			sourceTree = "<group>";
 		};
 		092099032BC1B14B00DAA0C7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				092098EF2BC1B0A500DAA0C7 /* ViewController.swift */,
+				092098EF2BC1B0A500DAA0C7 /* HomeViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		092099042BC1B14E00DAA0C7 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		092099052BC1B15500DAA0C7 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		092099062BC1B15F00DAA0C7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		092099082BC1B2D200DAA0C7 /* Resources */ = {
@@ -133,7 +145,6 @@
 				EB063394866DDD65B6540745 /* Pods-CinephileDatingApp.debug.xcconfig */,
 				06ED4AFAC0909503CBA76E75 /* Pods-CinephileDatingApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -259,8 +270,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				092098F02BC1B0A500DAA0C7 /* ViewController.swift in Sources */,
+				049EB0622BC889700040FFF8 /* CardView.swift in Sources */,
+				04C8729B2BC5D8EE00F954DB /* HomeVerticalStackView.swift in Sources */,
+				04C872982BC5D59400F954DB /* HomeActionsStackView.swift in Sources */,
+				092098F02BC1B0A500DAA0C7 /* HomeViewController.swift in Sources */,
 				092098EC2BC1B0A500DAA0C7 /* AppDelegate.swift in Sources */,
+				04C872962BC5BAF900F954DB /* HomeNavigationStackView.swift in Sources */,
 				092098EE2BC1B0A500DAA0C7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
