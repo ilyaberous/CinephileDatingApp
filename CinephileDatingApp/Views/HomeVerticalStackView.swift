@@ -19,8 +19,8 @@ class HomeVerticalStackView: UIStackView {
         view.layer.cornerRadius = 8
         return view
     }()
-    let card1 = CardView()
-    let card2 = CardView()
+    let card1 = CardView(viewModel: CardViewModel(user: User(name: "Анастасия Романова", age: 20, images: [#imageLiteral(resourceName: "jane3"), #imageLiteral(resourceName: "jane1"), #imageLiteral(resourceName: "jane2")])))
+    let card2 = CardView(viewModel: CardViewModel(user: User(name: "Катя Шутова", age: 20, images: [#imageLiteral(resourceName: "kelly3"), #imageLiteral(resourceName: "kelly1")])))
     
     //MARK: - Lifecycle
     

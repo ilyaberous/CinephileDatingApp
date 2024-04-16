@@ -12,29 +12,23 @@ enum SwipeDirection: Int {
     case right = 1
 }
 
-class CardView: UIView {
-    
+class CardView: UIView, CardViewModelDelegate {
+
     //MARK: - Properties
     
+    private var viewModel: CardViewModel
     private let gradientLayer = CAGradientLayer()
     
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
        let imgV = UIImageView()
-        imgV.image = #imageLiteral(resourceName: "lady4c")
+        imgV.image = viewModel.user.images.first
         imgV.contentMode = .scaleAspectFill
         return imgV
     }()
     
-    private let infoLabel: UILabel = {
+    private lazy var infoLabel: UILabel = {
        let label = UILabel()
-        let attributedText = NSMutableAttributedString(string: "Романова Анастасия",
-                                                       attributes: [.font: UIFont.systemFont(ofSize: 32, weight: .heavy),
-                                                                    .foregroundColor: UIColor.white])
-        
-        attributedText.append(NSAttributedString(string: "  20",
-                                                 attributes: [.font: UIFont.systemFont(ofSize: 24),
-                                                              .foregroundColor: UIColor.white]))
-        label.attributedText = attributedText
+        label.attributedText = viewModel.userInfoAttributedText
         label.numberOfLines = 2
         return label
     }()
@@ -56,10 +50,12 @@ class CardView: UIView {
     
     //MARK: - Lifecycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(viewModel: CardViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: .zero)
         setupUI()
         configureGestureRecognizer()
+        self.viewModel.delegate = self
     }
     
     override func layoutSubviews() {
@@ -156,6 +152,20 @@ class CardView: UIView {
     }
     
     @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
-        print("DEBUG! Tap on the photo")
+        let location = sender.location(in: nil).x
+        let shouldShowNextPhoto = location > self.frame.width / 2
+        
+        if shouldShowNextPhoto{
+            viewModel.showNextPhoto()
+        } else {
+            viewModel.showPreviousPhoto()
+        }
     }
+    
+    //MARK: - Delegate methods
+    
+    func setImage(img: UIImage) {
+        self.imageView.image = img
+    }
+    
 }

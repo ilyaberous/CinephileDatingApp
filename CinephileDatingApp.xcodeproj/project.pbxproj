@@ -16,6 +16,8 @@
 		092098F02BC1B0A500DAA0C7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098EF2BC1B0A500DAA0C7 /* HomeViewController.swift */; };
 		092098F52BC1B0A500DAA0C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 092098F42BC1B0A500DAA0C7 /* Assets.xcassets */; };
 		092098F82BC1B0A500DAA0C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 092098F62BC1B0A500DAA0C7 /* LaunchScreen.storyboard */; };
+		09385C432BCD952E002A58FB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09385C422BCD952E002A58FB /* User.swift */; };
+		09385C472BCD9A56002A58FB /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09385C462BCD9A56002A58FB /* CardViewModel.swift */; };
 		1E8BDB683834F305F426F5C7 /* Pods_CinephileDatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E179C2C3935EE7974B6A9D8 /* Pods_CinephileDatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +34,8 @@
 		092098F42BC1B0A500DAA0C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		092098F72BC1B0A500DAA0C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		092098F92BC1B0A500DAA0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09385C422BCD952E002A58FB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		09385C462BCD9A56002A58FB /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		0E179C2C3935EE7974B6A9D8 /* Pods_CinephileDatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CinephileDatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB063394866DDD65B6540745 /* Pods-CinephileDatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinephileDatingApp.debug.xcconfig"; path = "Target Support Files/Pods-CinephileDatingApp/Pods-CinephileDatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +69,7 @@
 		04C872912BC5BA3400F954DB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				09385C462BCD9A56002A58FB /* CardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -72,6 +77,7 @@
 		04C872922BC5BA4600F954DB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				09385C422BCD952E002A58FB /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -274,9 +280,11 @@
 				04C8729B2BC5D8EE00F954DB /* HomeVerticalStackView.swift in Sources */,
 				04C872982BC5D59400F954DB /* HomeActionsStackView.swift in Sources */,
 				092098F02BC1B0A500DAA0C7 /* HomeViewController.swift in Sources */,
+				09385C432BCD952E002A58FB /* User.swift in Sources */,
 				092098EC2BC1B0A500DAA0C7 /* AppDelegate.swift in Sources */,
 				04C872962BC5BAF900F954DB /* HomeNavigationStackView.swift in Sources */,
 				092098EE2BC1B0A500DAA0C7 /* SceneDelegate.swift in Sources */,
+				09385C472BCD9A56002A58FB /* CardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
