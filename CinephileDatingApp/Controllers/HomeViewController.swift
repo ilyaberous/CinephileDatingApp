@@ -25,12 +25,6 @@ class HomeViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(verticalStack)
-        
-//        verticalStack.snp.makeConstraints { make in
-//            make.left.right.equalTo(view).inset(16)
-//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-//            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(8)
-//        }
     }
 
 

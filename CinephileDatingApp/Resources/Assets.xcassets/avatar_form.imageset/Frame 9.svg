@@ -1,0 +1,5 @@
+<svg width="181" height="182" viewBox="0 0 181 182" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M181 91.2901C181 141.272 140.482 181.79 90.5 181.79C40.5182 181.79 0 141.272 0 91.2901C0 41.3083 40.5182 0.790088 90.5 0.790088C140.482 0.790088 181 41.3083 181 91.2901Z" fill="#D9D9D9"/>
+<line x1="90.5" y1="61" x2="90.5" y2="121" stroke="white" stroke-width="5"/>
+<line x1="121" y1="91.5" x2="61" y2="91.5" stroke="white" stroke-width="5"/>
+</svg>
