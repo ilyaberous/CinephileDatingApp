@@ -134,16 +134,16 @@ extension RegisterViewController: AuthenticationDelegate {
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func showPhotoActionSheet() {
-        let actionSheet = UIAlertController(title: "Profile Avatar",
-                                            message: "How would you like to select a photo",
+        let actionSheet = UIAlertController(title: "Основное фото профиля",
+                                            message: "Выберите, каким способом Вы хотите добавить фотографию",
                                             preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        actionSheet.addAction(UIAlertAction(title: "Choose photo",
+        actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        actionSheet.addAction(UIAlertAction(title: "Выбрать фото из галереи",
                                             style: .default,
                                             handler: { [weak self] _ in
             self?.showPhotoPicker()
         }))
-        actionSheet.addAction(UIAlertAction(title: "Take photo",
+        actionSheet.addAction(UIAlertAction(title: "Сделать фото",
                                             style: .default,
                                             handler: { [weak self] _ in
             self?.showCamera()
