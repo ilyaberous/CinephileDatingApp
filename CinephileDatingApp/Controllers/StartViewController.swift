@@ -91,7 +91,7 @@ class StartViewController: UIViewController {
        let label = UILabel()
         let attributedText = NSMutableAttributedString(string: "Еще не имеешь аккаунта? ", attributes: [.font : UIFont(name: Constraints.Fonts.Montserrat.medium, size: 12)!, .foregroundColor: UIColor.black])
         
-        let registrationLink = NSAttributedString(string: "Зарегестрируйся", attributes: [.font: UIFont(name: Constraints.Fonts.Montserrat.bold, size: 12)!, .foregroundColor: UIColor.black])
+        let registrationLink = NSAttributedString(string: "Зарегистрируйся", attributes: [.font: UIFont(name: Constraints.Fonts.Montserrat.bold, size: 12)!, .foregroundColor: UIColor.black])
         
         attributedText.append(registrationLink)
         
@@ -171,8 +171,8 @@ class StartViewController: UIViewController {
     //MARK: - Selectors
     
     @objc private func presentModal(sender: UIButton) {
-        let detailViewController = LoginViewController()
-        let nav = UINavigationController(rootViewController: detailViewController)
+        let loginViewController = LoginViewController()
+        let nav = UINavigationController(rootViewController: loginViewController)
         nav.modalPresentationStyle = .pageSheet
         
         if let sheet = nav.sheetPresentationController {
@@ -181,8 +181,8 @@ class StartViewController: UIViewController {
         }
         
         let barItem = UIBarButtonItem(image: UIImage(systemName: "multiply")?.withTintColor(.black, renderingMode: .alwaysOriginal), primaryAction: UIAction(handler: { _ in self.dismiss(animated: true)}))
-        detailViewController.navigationItem.setRightBarButton(barItem, animated: true)
-        present(nav, animated: true, completion: nil)
+        loginViewController.navigationItem.setRightBarButton(barItem, animated: true)
+        present(nav, animated: true)
     }
     
     @objc private func didTapLabelToRegistration(sender: UITapGestureRecognizer) {

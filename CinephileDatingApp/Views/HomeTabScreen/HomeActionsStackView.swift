@@ -7,21 +7,30 @@
 
 import UIKit
 
+protocol HomeActionsStackViewDelegate: AnyObject {
+    func handleLike()
+    func handleDislike()
+    func handleRefresh()
+}
+
 class HomeActionsStackView: UIStackView {
     //MARK: - Properties
     
+    weak var delegate: HomeActionsStackViewDelegate?
     var superView: UIView!
-    let refreshButton: UIButton = {
+    lazy var refreshButton: UIButton = {
         let btt = UIButton(type: .system)
         let profileImage = #imageLiteral(resourceName: "refresh_circle").withRenderingMode(.alwaysOriginal)
         btt.setImage(profileImage, for: .normal)
+        btt.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
         return btt
     }()
     
-    let dislikeButton: UIButton = {
+    lazy var dislikeButton: UIButton = {
         let btt = UIButton(type: .system)
         let profileImage = #imageLiteral(resourceName: "dismiss_circle").withRenderingMode(.alwaysOriginal)
         btt.setImage(profileImage, for: .normal)
+        btt.addTarget(self, action: #selector(dislikeButtonTapped), for: .touchUpInside)
         return btt
     }()
     
@@ -32,10 +41,11 @@ class HomeActionsStackView: UIStackView {
         return btt
     }()
     
-    let likeButton: UIButton = {
+    lazy var likeButton: UIButton = {
         let btt = UIButton(type: .system)
         let profileImage = #imageLiteral(resourceName: "like_circle").withRenderingMode(.alwaysOriginal)
         btt.setImage(profileImage, for: .normal)
+        btt.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         return btt
     }()
     
@@ -69,5 +79,19 @@ class HomeActionsStackView: UIStackView {
         self.snp.makeConstraints { make in make.height.equalTo(height) }
         
         distribution = .fillProportionally
+    }
+    
+    // MARK: - Selectors
+    
+    @objc private func refreshButtonTapped(sender: UIButton) {
+        delegate?.handleRefresh()
+    }
+    
+    @objc private func dislikeButtonTapped(sender: UIButton) {
+        delegate?.handleDislike()
+    }
+    
+    @objc private func likeButtonTapped(sender: UIButton) {
+        delegate?.handleLike()
     }
 }

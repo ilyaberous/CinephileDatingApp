@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import JGProgressHUD
 
 class RegisterViewController: UIViewController {
     
@@ -15,7 +17,12 @@ class RegisterViewController: UIViewController {
     let nameTextField = CustomTextField(placeholder: "Имя")
     let emailTextField = CustomTextField(placeholder: "Адрес электронной почты", shouldEmailKeyboard: true)
     let passwordTextField = CustomTextField(placeholder: "Пароль", shouldSecurity: true)
-    let button = LogRegButton(label: "Зарагестрироваться")
+    lazy var button: LogRegButton = {
+       let btt = LogRegButton(label: "Зарегистрироваться")
+        btt.addTarget(self, action: #selector(regiserButtonTapped), for: .touchUpInside)
+        return btt
+    }()
+    
     lazy var profileAvatar: UIImageView = {
         let imgV = UIImageView(image: UIImage(named: "avatar_form")?.withRenderingMode(.alwaysOriginal))
         imgV.contentMode = .scaleAspectFill
@@ -29,7 +36,7 @@ class RegisterViewController: UIViewController {
     }()
     
     //MARK: - LifeCycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Регистрация"
@@ -85,6 +92,29 @@ class RegisterViewController: UIViewController {
     
     @objc private func avatarTapped(sender: UIImageView) {
         showPhotoActionSheet()
+    }
+    
+    @objc private func regiserButtonTapped(sender: LogRegButton) {
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let name = nameTextField.text else { return }
+        guard let image = profileAvatar.image else { return }
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.show(in: view)
+        
+        let credentials = AuthCredentials(email: email, password: password, name: name, profileImage: image)
+        
+        AuthService.registerUser(withCredentials: credentials) { [weak self] error in
+            guard let self = self else { return }
+            if let error = error {
+                print("DEBUG: Error registration user \(error.localizedDescription)")
+                return
+            }
+            
+            print("DEBUG: Sucessesfull registration")
+            self.dismiss(animated: true)
+        }
     }
 }
 

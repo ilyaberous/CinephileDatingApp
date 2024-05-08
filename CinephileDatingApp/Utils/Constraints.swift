@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 
 struct Constraints {
@@ -25,5 +26,11 @@ struct Constraints {
     
     struct Colors {
         static let customBlack = #colorLiteral(red: 0.1206690893, green: 0.1256528199, blue: 0.1341503859, alpha: 1)
+        static let barDeselect = UIColor(white: 0, alpha: 0.1)
+    }
+    
+    struct Firebase {
+        static let COLLECTION_USERS = Firestore.firestore().collection("users")
+        static let COLLECTION_SWIPES = Firestore.firestore().collection("swipes")
     }
 }

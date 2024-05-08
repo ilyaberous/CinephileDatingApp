@@ -9,5 +9,15 @@ target 'CinephileDatingApp' do
 
   # SnapKit
   pod 'SnapKit', '~> 5.7.1'
+  
+  # Firebase
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Core'
+  
+  # Others
+  pod 'SDWebImage', '~> 4.4.2'
+  pod 'JGProgressHUD', '~> 2.0.3'
 
 end

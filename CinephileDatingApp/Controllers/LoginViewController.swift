@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
 
@@ -14,7 +15,11 @@ class LoginViewController: UIViewController {
     let viewModel: LoginViewModel = LoginViewModel()
     let emailTextField = CustomTextField(placeholder: "Адрес электронной почты", shouldEmailKeyboard: true)
     let passwordTextField = CustomTextField(placeholder: "Пароль", shouldSecurity: true)
-    let button = LogRegButton(label: "Продолжить")
+    lazy var button: LogRegButton = {
+       let btt = LogRegButton(label: "Продолжить")
+        btt.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        return btt
+    }()
     
     //MARK: - LifeCycle
     
@@ -55,6 +60,27 @@ class LoginViewController: UIViewController {
         passwordTextField.delegate = self
         viewModel.delegate = self
     }
+    
+    //MARK: - Selectors
+    
+    @objc private func loginButtonTapped(sender: LogRegButton) {
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        
+        let hud = JGProgressHUD(style: .dark)
+        
+        hud.show(in: view)
+        
+        AuthService.logUserIn(withEmail: email, password: password) { [weak self] (result, error) in
+            if let error = error {
+                print("DEBUG: Error login user \(error.localizedDescription)")
+                return
+            }
+//            self?.navigationController?.dismiss(animated: true)
+            hud.dismiss(animated: true)
+            self?.presentingViewController?.presentingViewController?.dismiss(animated: true)
+        }
+    }
 }
 
 //MARK: - UITextField Delegate Methods
@@ -93,5 +119,12 @@ extension LoginViewController: AuthenticationDelegate {
         button.switchToDisenabledState()
     }
 }
+
+//extension LoginViewController: UINavigationControllerDelegate {
+//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+//        print("dissmis")
+//        navigationController.dismiss(animated: true)
+//    }
+//}
 
 

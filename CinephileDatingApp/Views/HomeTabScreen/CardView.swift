@@ -6,22 +6,29 @@
 //
 
 import UIKit
+import SDWebImage
 
 enum SwipeDirection: Int {
     case left = -1
     case right = 1
 }
 
+protocol CardViewDelegate: AnyObject {
+    func cardView(_ cardView: CardView, wantsToShowUserProfileFor user: User)
+    func cardView(_ cardView: CardView, didLikeUser: Bool)
+}
+
 class CardView: UIView, CardViewModelDelegate {
 
     //MARK: - Properties
     
-    private var viewModel: CardViewModel
+    weak var delegate: CardViewDelegate?
+    var viewModel: CardViewModel
     private let gradientLayer = CAGradientLayer()
     
     private lazy var imageView: UIImageView = {
        let imgV = UIImageView()
-        imgV.image = viewModel.user.images.first
+       // imgV.image = viewModel.user.images.first
         imgV.contentMode = .scaleAspectFill
         return imgV
     }()
@@ -37,6 +44,7 @@ class CardView: UIView, CardViewModelDelegate {
         let btt = UIButton(type: .system)
         let img = UIImage(#imageLiteral(resourceName: "info_icon")).withRenderingMode(.alwaysOriginal)
         btt.setImage(img, for: .normal)
+        btt.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
         return btt
     }()
     
@@ -47,6 +55,8 @@ class CardView: UIView, CardViewModelDelegate {
         stack.alignment = .center
         return stack
     }()
+    
+    private lazy var barStackView = SegmentedBarView(numberOfSegments: viewModel.imageURLs.count)
     
     //MARK: - Lifecycle
     
@@ -69,11 +79,13 @@ class CardView: UIView, CardViewModelDelegate {
     //MARK: - Setup UI
     
     private func setupUI() {
-        backgroundColor = .green
         layer.cornerRadius = 8
         clipsToBounds = true
         
         addSubview(imageView)
+        
+        imageView.sd_setImage(with: viewModel.imageURL)
+        
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -89,9 +101,20 @@ class CardView: UIView, CardViewModelDelegate {
             make.height.width.equalTo(40)
         }
         
+        configureBarStackView()
+        
     }
     
     //MARK: - Helpers
+    
+    private func configureBarStackView() {
+        addSubview(barStackView)
+        barStackView.snp.makeConstraints { make in
+            make.left.right.top.equalToSuperview().inset(8)
+            make.height.equalTo(4)
+        }
+        
+    }
     
     private func  configureGradientLayer() {
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
@@ -122,7 +145,9 @@ class CardView: UIView, CardViewModelDelegate {
             }
         }) { _ in
             if shouldDismissCard {
-                self.removeFromSuperview()
+//                self.removeFromSuperview()
+                let didLike = direction == .right
+                self.delegate?.cardView(self, didLikeUser: didLike)
             }
         }
     }
@@ -137,6 +162,10 @@ class CardView: UIView, CardViewModelDelegate {
     
     
     //MARK: - Selectors
+    
+    @objc private func infoButtonTapped(sender: UIButton) {
+        delegate?.cardView(self, wantsToShowUserProfileFor: viewModel.user)
+    }
     
     @objc private func handlePanGesture(sender: UIPanGestureRecognizer) {
         switch sender.state {
@@ -160,6 +189,9 @@ class CardView: UIView, CardViewModelDelegate {
         } else {
             viewModel.showPreviousPhoto()
         }
+        
+        imageView.sd_setImage(with: viewModel.imageURL)
+        barStackView.setHighlighted(index: viewModel.index)
     }
     
     //MARK: - Delegate methods

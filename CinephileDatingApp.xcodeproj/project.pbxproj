@@ -20,9 +20,19 @@
 		0928F7D82BD40EC700087575 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0928F7D42BD40E9400087575 /* Montserrat-Medium.ttf */; };
 		0928F7DA2BD428C500087575 /* FilmShotImageWithDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0928F7D92BD428C500087575 /* FilmShotImageWithDescription.swift */; };
 		09305DCC2BD3FC510018AE92 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09305DCB2BD3FC510018AE92 /* Constraints.swift */; };
+		0935AB2A2BD8477D00357FF0 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935AB292BD8477D00357FF0 /* ProfileSettingsViewController.swift */; };
+		0935AB2C2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935AB2B2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift */; };
+		0935AB2E2BD86FD500357FF0 /* ProfileSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935AB2D2BD86FD500357FF0 /* ProfileSettingsCell.swift */; };
+		0935AB302BD871CE00357FF0 /* ProfileSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935AB2F2BD871CE00357FF0 /* ProfileSettingsViewModel.swift */; };
 		09385C432BCD952E002A58FB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09385C422BCD952E002A58FB /* User.swift */; };
 		09385C472BCD9A56002A58FB /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09385C462BCD9A56002A58FB /* CardViewModel.swift */; };
 		0949CEEB2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0949CEEA2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift */; };
+		094CC6132BD97A28005A5CC0 /* ProfileSettingsFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6122BD97A28005A5CC0 /* ProfileSettingsFooter.swift */; };
+		094CC6152BD9A4B5005A5CC0 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6142BD9A4B5005A5CC0 /* UserProfileViewController.swift */; };
+		094CC6172BD9A7F3005A5CC0 /* userProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6162BD9A7F3005A5CC0 /* userProfileCollectionViewCell.swift */; };
+		094CC6192BD9B57A005A5CC0 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6182BD9B57A005A5CC0 /* UserProfileViewModel.swift */; };
+		094CC61B2BD9B9B5005A5CC0 /* SegmentedBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC61A2BD9B9B5005A5CC0 /* SegmentedBarView.swift */; };
+		096D0C932BD71662009CF490 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 096D0C922BD71662009CF490 /* GoogleService-Info.plist */; };
 		0986CE142BD6957A00F3A019 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986CE132BD6957A00F3A019 /* AuthViewModel.swift */; };
 		09A04EC32BCED6F200DC0C28 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A04EC22BCED6F200DC0C28 /* StartViewController.swift */; };
 		09A04EC52BCED70800DC0C28 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A04EC42BCED70800DC0C28 /* RegisterViewController.swift */; };
@@ -30,6 +40,8 @@
 		09A04ECB2BD05AFC00DC0C28 /* LogRegButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A04ECA2BD05AFC00DC0C28 /* LogRegButton.swift */; };
 		09A04ECE2BD0744D00DC0C28 /* UIViewController+hideKeyboardWhenTappedAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A04ECD2BD0744D00DC0C28 /* UIViewController+hideKeyboardWhenTappedAround.swift */; };
 		09E1109A2BD1E2F3003A8EA8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E110992BD1E2F3003A8EA8 /* LoginViewController.swift */; };
+		09E212462BD71F8A002C86AF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E212452BD71F8A002C86AF /* AuthService.swift */; };
+		09E212482BD71FA5002C86AF /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E212472BD71FA5002C86AF /* Service.swift */; };
 		1E8BDB683834F305F426F5C7 /* Pods_CinephileDatingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E179C2C3935EE7974B6A9D8 /* Pods_CinephileDatingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,9 +61,19 @@
 		0928F7D52BD40E9900087575 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		0928F7D92BD428C500087575 /* FilmShotImageWithDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmShotImageWithDescription.swift; sourceTree = "<group>"; };
 		09305DCB2BD3FC510018AE92 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
+		0935AB292BD8477D00357FF0 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
+		0935AB2B2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsHeaderView.swift; sourceTree = "<group>"; };
+		0935AB2D2BD86FD500357FF0 /* ProfileSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsCell.swift; sourceTree = "<group>"; };
+		0935AB2F2BD871CE00357FF0 /* ProfileSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewModel.swift; sourceTree = "<group>"; };
 		09385C422BCD952E002A58FB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		09385C462BCD9A56002A58FB /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		0949CEEA2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift"; sourceTree = "<group>"; };
+		094CC6122BD97A28005A5CC0 /* ProfileSettingsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsFooter.swift; sourceTree = "<group>"; };
+		094CC6142BD9A4B5005A5CC0 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		094CC6162BD9A7F3005A5CC0 /* userProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		094CC6182BD9B57A005A5CC0 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
+		094CC61A2BD9B9B5005A5CC0 /* SegmentedBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedBarView.swift; sourceTree = "<group>"; };
+		096D0C922BD71662009CF490 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0986CE132BD6957A00F3A019 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		0986CE162BD6F60600F3A019 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09A04EC22BCED6F200DC0C28 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +82,8 @@
 		09A04ECA2BD05AFC00DC0C28 /* LogRegButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogRegButton.swift; sourceTree = "<group>"; };
 		09A04ECD2BD0744D00DC0C28 /* UIViewController+hideKeyboardWhenTappedAround.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+hideKeyboardWhenTappedAround.swift"; sourceTree = "<group>"; };
 		09E110992BD1E2F3003A8EA8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		09E212452BD71F8A002C86AF /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		09E212472BD71FA5002C86AF /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		0E179C2C3935EE7974B6A9D8 /* Pods_CinephileDatingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CinephileDatingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB063394866DDD65B6540745 /* Pods-CinephileDatingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinephileDatingApp.debug.xcconfig"; path = "Target Support Files/Pods-CinephileDatingApp/Pods-CinephileDatingApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +103,8 @@
 		04C8728F2BC5BA1700F954DB /* API */ = {
 			isa = PBXGroup;
 			children = (
+				09E212452BD71F8A002C86AF /* AuthService.swift */,
+				09E212472BD71FA5002C86AF /* Service.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -98,6 +124,8 @@
 			children = (
 				09385C462BCD9A56002A58FB /* CardViewModel.swift */,
 				0986CE132BD6957A00F3A019 /* AuthViewModel.swift */,
+				0935AB2F2BD871CE00357FF0 /* ProfileSettingsViewModel.swift */,
+				094CC6182BD9B57A005A5CC0 /* UserProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -113,6 +141,7 @@
 		04C872942BC5BA5D00F954DB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				094CC6112BD96628005A5CC0 /* ProfileSettingsScreen */,
 				0986CE192BD7023000F3A019 /* HomeTabScreen */,
 				0986CE172BD701B000F3A019 /* StartScreen */,
 			);
@@ -140,8 +169,9 @@
 		092098EA2BC1B0A500DAA0C7 /* CinephileDatingApp */ = {
 			isa = PBXGroup;
 			children = (
-				0928F7D22BD40E7100087575 /* fonts */,
+				096D0C922BD71662009CF490 /* GoogleService-Info.plist */,
 				092098F92BC1B0A500DAA0C7 /* Info.plist */,
+				0928F7D22BD40E7100087575 /* fonts */,
 				04C872942BC5BA5D00F954DB /* Views */,
 				04C872922BC5BA4600F954DB /* Models */,
 				04C872912BC5BA3400F954DB /* ViewModels */,
@@ -160,6 +190,8 @@
 				09E110992BD1E2F3003A8EA8 /* LoginViewController.swift */,
 				09A04EC42BCED70800DC0C28 /* RegisterViewController.swift */,
 				092098EF2BC1B0A500DAA0C7 /* HomeViewController.swift */,
+				0935AB292BD8477D00357FF0 /* ProfileSettingsViewController.swift */,
+				094CC6142BD9A4B5005A5CC0 /* UserProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -184,6 +216,16 @@
 			path = fonts;
 			sourceTree = "<group>";
 		};
+		094CC6112BD96628005A5CC0 /* ProfileSettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0935AB2B2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift */,
+				0935AB2D2BD86FD500357FF0 /* ProfileSettingsCell.swift */,
+				094CC6122BD97A28005A5CC0 /* ProfileSettingsFooter.swift */,
+			);
+			path = ProfileSettingsScreen;
+			sourceTree = "<group>";
+		};
 		0986CE172BD701B000F3A019 /* StartScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +241,8 @@
 				04C872952BC5BAF900F954DB /* HomeNavigationStackView.swift */,
 				04C872972BC5D59400F954DB /* HomeActionsStackView.swift */,
 				04C8729A2BC5D8EE00F954DB /* HomeVerticalStackView.swift */,
+				094CC6162BD9A7F3005A5CC0 /* userProfileCollectionViewCell.swift */,
+				094CC61A2BD9B9B5005A5CC0 /* SegmentedBarView.swift */,
 			);
 			path = HomeTabScreen;
 			sourceTree = "<group>";
@@ -301,6 +345,7 @@
 			files = (
 				092098F82BC1B0A500DAA0C7 /* LaunchScreen.storyboard in Resources */,
 				092098F52BC1B0A500DAA0C7 /* Assets.xcassets in Resources */,
+				096D0C932BD71662009CF490 /* GoogleService-Info.plist in Resources */,
 				0928F7D82BD40EC700087575 /* Montserrat-Medium.ttf in Resources */,
 				0928F7D72BD40EC400087575 /* Montserrat-Bold.ttf in Resources */,
 			);
@@ -355,25 +400,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				094CC6192BD9B57A005A5CC0 /* UserProfileViewModel.swift in Sources */,
 				049EB0622BC889700040FFF8 /* CardView.swift in Sources */,
 				09A04EC52BCED70800DC0C28 /* RegisterViewController.swift in Sources */,
+				0935AB2E2BD86FD500357FF0 /* ProfileSettingsCell.swift in Sources */,
 				04C8729B2BC5D8EE00F954DB /* HomeVerticalStackView.swift in Sources */,
 				09E1109A2BD1E2F3003A8EA8 /* LoginViewController.swift in Sources */,
 				09305DCC2BD3FC510018AE92 /* Constraints.swift in Sources */,
 				04C872982BC5D59400F954DB /* HomeActionsStackView.swift in Sources */,
 				0986CE142BD6957A00F3A019 /* AuthViewModel.swift in Sources */,
+				094CC61B2BD9B9B5005A5CC0 /* SegmentedBarView.swift in Sources */,
+				0935AB2A2BD8477D00357FF0 /* ProfileSettingsViewController.swift in Sources */,
+				09E212462BD71F8A002C86AF /* AuthService.swift in Sources */,
+				09E212482BD71FA5002C86AF /* Service.swift in Sources */,
 				092098F02BC1B0A500DAA0C7 /* HomeViewController.swift in Sources */,
 				09A04ECB2BD05AFC00DC0C28 /* LogRegButton.swift in Sources */,
 				09385C432BCD952E002A58FB /* User.swift in Sources */,
 				092098EC2BC1B0A500DAA0C7 /* AppDelegate.swift in Sources */,
 				09A04ECE2BD0744D00DC0C28 /* UIViewController+hideKeyboardWhenTappedAround.swift in Sources */,
+				094CC6152BD9A4B5005A5CC0 /* UserProfileViewController.swift in Sources */,
 				04C872962BC5BAF900F954DB /* HomeNavigationStackView.swift in Sources */,
 				09A04EC92BCED88300DC0C28 /* CustomTextField.swift in Sources */,
 				092098EE2BC1B0A500DAA0C7 /* SceneDelegate.swift in Sources */,
 				0928F7DA2BD428C500087575 /* FilmShotImageWithDescription.swift in Sources */,
 				09A04EC32BCED6F200DC0C28 /* StartViewController.swift in Sources */,
+				0935AB2C2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift in Sources */,
 				09385C472BCD9A56002A58FB /* CardViewModel.swift in Sources */,
 				0949CEEB2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift in Sources */,
+				094CC6172BD9A7F3005A5CC0 /* userProfileCollectionViewCell.swift in Sources */,
+				0935AB302BD871CE00357FF0 /* ProfileSettingsViewModel.swift in Sources */,
+				094CC6132BD97A28005A5CC0 /* ProfileSettingsFooter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,7 +23,7 @@ protocol AuthenticationViewModel {
 
 class LoginViewModel: AuthenticationViewModel {
     
-    var delegate: AuthenticationDelegate?
+    weak var delegate: AuthenticationDelegate?
     var email: String?
     var password: String?
     
@@ -42,7 +42,7 @@ class LoginViewModel: AuthenticationViewModel {
 
 class RegisterViewModel: AuthenticationViewModel {
     
-    var delegate: AuthenticationDelegate?
+    weak var delegate: AuthenticationDelegate?
     var name: String?
     var email: String?
     var password: String?

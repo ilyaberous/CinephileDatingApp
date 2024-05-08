@@ -8,16 +8,24 @@
 import UIKit
 import SnapKit
 
+protocol HomeNavigationStackViewDelegate: AnyObject {
+    func showSettings()
+    func showMessages()
+}
+
 class HomeNavigationStackView: UIStackView {
     
     //MARK: - Properties
     
+    weak var delegate: HomeNavigationStackViewDelegate?
+    
     var superView: UIView!
     
-    let profileButton: UIButton = {
+    lazy var profileButton: UIButton = {
         let btt = UIButton(type: .system)
         let profileImage = UIImage(named: "top_left_profile")?.withRenderingMode(.alwaysOriginal)
         btt.setImage(profileImage, for: .normal)
+        btt.addTarget(self, action: #selector(profileButtonTapped), for: .touchUpInside)
         return btt
     }()
     
@@ -27,6 +35,15 @@ class HomeNavigationStackView: UIStackView {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
+    let button: UILabel = {
+        let btt = UILabel()
+        btt.text = "OBSCURA"
+        btt.font = UIFont(name: Constraints.Fonts.Montserrat.bold, size: 24)
+        btt.textColor = .black
+        return btt
+    }()
+    
     let messageButton: UIButton = {
         let btt = UIButton(type: .system)
         let profileImage = UIImage(named: "top_right_messages")?.withRenderingMode(.alwaysOriginal)
@@ -49,7 +66,7 @@ class HomeNavigationStackView: UIStackView {
     //MARK: - Setup UI
     
     private func setupUI() {
-        [profileButton, UIView(), fireImage, UIView(), messageButton].forEach { el in
+        [profileButton, UIView(), button, UIView(), messageButton].forEach { el in
             addArrangedSubview(el)
         }
         
@@ -58,5 +75,11 @@ class HomeNavigationStackView: UIStackView {
         
         let height = superView.frame.height * 0.125
         self.snp.makeConstraints { make in make.height.equalTo(height) }
+    }
+    
+    //MARK: - Selectors
+    
+    @objc private func profileButtonTapped(sender: UIButton) {
+        delegate?.showSettings()
     }
 }
