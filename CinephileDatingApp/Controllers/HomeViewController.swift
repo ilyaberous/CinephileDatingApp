@@ -70,6 +70,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         checkIsUserLoggedIn()
+        setupUI()
+        setupDelegates()
         print("DEBUG: fetch users was called")
     }
 //
@@ -119,8 +121,6 @@ class HomeViewController: UIViewController {
             print("DEBUG: User is logged in \(Auth.auth().currentUser?.email)")
             fetchUser()
             //logOut()
-            setupUI()
-            setupDelegates()
         }
     }
     
@@ -206,6 +206,7 @@ class HomeViewController: UIViewController {
         verticalStack.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
+        print("DEBUG: setuped UI ")
 
     }
 }
@@ -267,6 +268,7 @@ extension HomeViewController: CardViewDelegate {
     func cardView(_ cardView: CardView, wantsToShowUserProfileFor user: User) {
         let vc = UserProfileViewController(user: user)
         vc.modalPresentationStyle = .fullScreen
+        vc.delegate = self
         present(vc, animated: true)
     }
 }
@@ -291,7 +293,8 @@ extension HomeViewController: HomeActionsStackViewDelegate {
     }
     
     func handleRefresh() {
-        setupCards()
+        fetchUser()
+        //setupCards()
         //зачем??
         view.layoutSubviews()
         print("DEBUG: handle")
@@ -306,4 +309,25 @@ extension HomeViewController: LoginRegisterDelegate {
         fetchUser()
         //fetchUsers()
     }
+}
+
+
+// MARK: - UserProfileViewController Delegate Methods
+
+extension HomeViewController: UserProfileViewControllerDelegate {
+    func profileController(_ controller: UserProfileViewController, didLikeUser user: User) {
+        controller.dismiss(animated: true) {
+            self.performSwipeAnimation(shouldLike: true)
+            Service.saveSwipe(forUser: user, isLike: true)
+        }
+    }
+    
+    func profileController(_ controller: UserProfileViewController, didDislikeUser user: User) {
+        controller.dismiss(animated: true) {
+            self.performSwipeAnimation(shouldLike: false)
+            Service.saveSwipe(forUser: user, isLike: false)
+        }
+    }
+    
+    
 }

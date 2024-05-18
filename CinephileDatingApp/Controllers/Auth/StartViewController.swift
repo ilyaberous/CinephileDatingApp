@@ -112,6 +112,7 @@ class StartViewController: UIViewController {
         let blur = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         blur.frame = view.frame
         blur.alpha = 0
+        
         return blur
     }()
     
@@ -207,6 +208,7 @@ class StartViewController: UIViewController {
         loginViewController.delegate = delegate
         let nav = UINavigationController(rootViewController: loginViewController)
         nav.modalPresentationStyle = .pageSheet
+        nav.isModalInPresentation = true
         
         if let sheet = nav.sheetPresentationController {
             sheet.preferredCornerRadius = 14
@@ -236,4 +238,8 @@ class StartViewController: UIViewController {
         }
     }
     
+    @objc func didTapBlur() {
+        print("DEBUG: tapped blur")
+        removeBlur()
+    }
 }

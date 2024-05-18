@@ -7,8 +7,15 @@
 
 import UIKit
 
+protocol UserProfileViewControllerDelegate: AnyObject {
+    func profileController(_ controller: UserProfileViewController, didLikeUser user: User)
+    func profileController(_ controller: UserProfileViewController, didDislikeUser user: User)
+}
+
 class UserProfileViewController: UIViewController {
     // MARK: - Properties
+    
+    weak var delegate: UserProfileViewControllerDelegate?
     
     private let user: User
     
@@ -181,7 +188,7 @@ class UserProfileViewController: UIViewController {
     }
     
     @objc private func dislikeButtonTapped(sender: UIButton) {
-        
+        delegate?.profileController(self, didDislikeUser: user)
     }
     
     @objc private func superLikeButtonTapped(sender: UIButton) {
@@ -189,7 +196,7 @@ class UserProfileViewController: UIViewController {
     }
     
     @objc private func likeButtonTapped(sender: UIButton) {
-        
+        delegate?.profileController(self, didLikeUser: user)
     }
 }
 

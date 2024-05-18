@@ -98,6 +98,8 @@ class CardView: UIView {
         
         addSubview(imageView)
         
+        backgroundColor = .systemGroupedBackground
+        
         imageView.sd_setImage(with: viewModel.imageURL)
         
         imageView.snp.makeConstraints { make in
