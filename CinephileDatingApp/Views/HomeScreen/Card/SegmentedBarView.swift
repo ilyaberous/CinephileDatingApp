@@ -13,7 +13,7 @@ class SegmentedBarView: UIStackView {
         
         (0..<numberOfSegments).forEach { _ in
             let barView = UIView()
-            barView.backgroundColor = Constraints.Colors.barDeselect
+            barView.backgroundColor = Constants.Colors.barDeselect
             addArrangedSubview(barView)
         }
         
@@ -29,7 +29,7 @@ class SegmentedBarView: UIStackView {
     
     
     func setHighlighted(index: Int) {
-       arrangedSubviews.forEach({ $0.backgroundColor = Constraints.Colors.barDeselect })
+       arrangedSubviews.forEach({ $0.backgroundColor = Constants.Colors.barDeselect })
        arrangedSubviews[index].backgroundColor = .white
     }
 }

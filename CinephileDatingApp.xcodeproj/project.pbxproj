@@ -18,8 +18,8 @@
 		092098F82BC1B0A500DAA0C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 092098F62BC1B0A500DAA0C7 /* LaunchScreen.storyboard */; };
 		0928F7D72BD40EC400087575 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0928F7D52BD40E9900087575 /* Montserrat-Bold.ttf */; };
 		0928F7D82BD40EC700087575 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0928F7D42BD40E9400087575 /* Montserrat-Medium.ttf */; };
-		0928F7DA2BD428C500087575 /* FilmShotImageWithDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0928F7D92BD428C500087575 /* FilmShotImageWithDescription.swift */; };
-		09305DCC2BD3FC510018AE92 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09305DCB2BD3FC510018AE92 /* Constraints.swift */; };
+		0928F7DA2BD428C500087575 /* FilmShotImageWithDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0928F7D92BD428C500087575 /* FilmShotImageWithDescriptionView.swift */; };
+		09305DCC2BD3FC510018AE92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09305DCB2BD3FC510018AE92 /* Constants.swift */; };
 		0935AB2A2BD8477D00357FF0 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935AB292BD8477D00357FF0 /* ProfileSettingsViewController.swift */; };
 		0935AB2C2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935AB2B2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift */; };
 		0935AB2E2BD86FD500357FF0 /* ProfileSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935AB2D2BD86FD500357FF0 /* ProfileSettingsCell.swift */; };
@@ -29,7 +29,7 @@
 		0949CEEB2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0949CEEA2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift */; };
 		094CC6132BD97A28005A5CC0 /* ProfileSettingsFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6122BD97A28005A5CC0 /* ProfileSettingsFooter.swift */; };
 		094CC6152BD9A4B5005A5CC0 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6142BD9A4B5005A5CC0 /* UserProfileViewController.swift */; };
-		094CC6172BD9A7F3005A5CC0 /* userProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6162BD9A7F3005A5CC0 /* userProfileCollectionViewCell.swift */; };
+		094CC6172BD9A7F3005A5CC0 /* UserProfileCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6162BD9A7F3005A5CC0 /* UserProfileCollectionCell.swift */; };
 		094CC6192BD9B57A005A5CC0 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6182BD9B57A005A5CC0 /* UserProfileViewModel.swift */; };
 		094CC61B2BD9B9B5005A5CC0 /* SegmentedBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC61A2BD9B9B5005A5CC0 /* SegmentedBarView.swift */; };
 		096D0C932BD71662009CF490 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 096D0C922BD71662009CF490 /* GoogleService-Info.plist */; };
@@ -59,8 +59,8 @@
 		092098F92BC1B0A500DAA0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0928F7D42BD40E9400087575 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		0928F7D52BD40E9900087575 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
-		0928F7D92BD428C500087575 /* FilmShotImageWithDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmShotImageWithDescription.swift; sourceTree = "<group>"; };
-		09305DCB2BD3FC510018AE92 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
+		0928F7D92BD428C500087575 /* FilmShotImageWithDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmShotImageWithDescriptionView.swift; sourceTree = "<group>"; };
+		09305DCB2BD3FC510018AE92 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0935AB292BD8477D00357FF0 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		0935AB2B2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsHeaderView.swift; sourceTree = "<group>"; };
 		0935AB2D2BD86FD500357FF0 /* ProfileSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsCell.swift; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 		0949CEEA2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift"; sourceTree = "<group>"; };
 		094CC6122BD97A28005A5CC0 /* ProfileSettingsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsFooter.swift; sourceTree = "<group>"; };
 		094CC6142BD9A4B5005A5CC0 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		094CC6162BD9A7F3005A5CC0 /* userProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		094CC6162BD9A7F3005A5CC0 /* UserProfileCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionCell.swift; sourceTree = "<group>"; };
 		094CC6182BD9B57A005A5CC0 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		094CC61A2BD9B9B5005A5CC0 /* SegmentedBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedBarView.swift; sourceTree = "<group>"; };
 		096D0C922BD71662009CF490 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 			children = (
 				09A04ECC2BD073C900DC0C28 /* Extensions */,
 				09A04EC72BCED7E000DC0C28 /* CustomStandartViews */,
-				09305DCB2BD3FC510018AE92 /* Constraints.swift */,
+				09305DCB2BD3FC510018AE92 /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -141,9 +141,9 @@
 		04C872942BC5BA5D00F954DB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				094CC6112BD96628005A5CC0 /* ProfileSettingsScreen */,
-				0986CE192BD7023000F3A019 /* HomeTabScreen */,
 				0986CE172BD701B000F3A019 /* StartScreen */,
+				0986CE192BD7023000F3A019 /* HomeScreen */,
+				094CC6112BD96628005A5CC0 /* ProfileSettingsScreen */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,9 +186,7 @@
 		092099032BC1B14B00DAA0C7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				09A04EC22BCED6F200DC0C28 /* StartViewController.swift */,
-				09E110992BD1E2F3003A8EA8 /* LoginViewController.swift */,
-				09A04EC42BCED70800DC0C28 /* RegisterViewController.swift */,
+				09BCD3592BF26E7000C8FCD0 /* Auth */,
 				092098EF2BC1B0A500DAA0C7 /* HomeViewController.swift */,
 				0935AB292BD8477D00357FF0 /* ProfileSettingsViewController.swift */,
 				094CC6142BD9A4B5005A5CC0 /* UserProfileViewController.swift */,
@@ -229,22 +227,20 @@
 		0986CE172BD701B000F3A019 /* StartScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0928F7D92BD428C500087575 /* FilmShotImageWithDescription.swift */,
+				0928F7D92BD428C500087575 /* FilmShotImageWithDescriptionView.swift */,
 			);
 			path = StartScreen;
 			sourceTree = "<group>";
 		};
-		0986CE192BD7023000F3A019 /* HomeTabScreen */ = {
+		0986CE192BD7023000F3A019 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
-				049EB0612BC889700040FFF8 /* CardView.swift */,
+				09BCD3582BF268E500C8FCD0 /* Card */,
 				04C872952BC5BAF900F954DB /* HomeNavigationStackView.swift */,
 				04C872972BC5D59400F954DB /* HomeActionsStackView.swift */,
 				04C8729A2BC5D8EE00F954DB /* HomeVerticalStackView.swift */,
-				094CC6162BD9A7F3005A5CC0 /* userProfileCollectionViewCell.swift */,
-				094CC61A2BD9B9B5005A5CC0 /* SegmentedBarView.swift */,
 			);
-			path = HomeTabScreen;
+			path = HomeScreen;
 			sourceTree = "<group>";
 		};
 		09A04EC72BCED7E000DC0C28 /* CustomStandartViews */ = {
@@ -263,6 +259,26 @@
 				0949CEEA2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		09BCD3582BF268E500C8FCD0 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				049EB0612BC889700040FFF8 /* CardView.swift */,
+				094CC61A2BD9B9B5005A5CC0 /* SegmentedBarView.swift */,
+				094CC6162BD9A7F3005A5CC0 /* UserProfileCollectionCell.swift */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		09BCD3592BF26E7000C8FCD0 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				09A04EC22BCED6F200DC0C28 /* StartViewController.swift */,
+				09E110992BD1E2F3003A8EA8 /* LoginViewController.swift */,
+				09A04EC42BCED70800DC0C28 /* RegisterViewController.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		FECED813F3E5F72E085A5E3B /* Pods */ = {
@@ -406,7 +422,7 @@
 				0935AB2E2BD86FD500357FF0 /* ProfileSettingsCell.swift in Sources */,
 				04C8729B2BC5D8EE00F954DB /* HomeVerticalStackView.swift in Sources */,
 				09E1109A2BD1E2F3003A8EA8 /* LoginViewController.swift in Sources */,
-				09305DCC2BD3FC510018AE92 /* Constraints.swift in Sources */,
+				09305DCC2BD3FC510018AE92 /* Constants.swift in Sources */,
 				04C872982BC5D59400F954DB /* HomeActionsStackView.swift in Sources */,
 				0986CE142BD6957A00F3A019 /* AuthViewModel.swift in Sources */,
 				094CC61B2BD9B9B5005A5CC0 /* SegmentedBarView.swift in Sources */,
@@ -422,12 +438,12 @@
 				04C872962BC5BAF900F954DB /* HomeNavigationStackView.swift in Sources */,
 				09A04EC92BCED88300DC0C28 /* CustomTextField.swift in Sources */,
 				092098EE2BC1B0A500DAA0C7 /* SceneDelegate.swift in Sources */,
-				0928F7DA2BD428C500087575 /* FilmShotImageWithDescription.swift in Sources */,
+				0928F7DA2BD428C500087575 /* FilmShotImageWithDescriptionView.swift in Sources */,
 				09A04EC32BCED6F200DC0C28 /* StartViewController.swift in Sources */,
 				0935AB2C2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift in Sources */,
 				09385C472BCD9A56002A58FB /* CardViewModel.swift in Sources */,
 				0949CEEB2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift in Sources */,
-				094CC6172BD9A7F3005A5CC0 /* userProfileCollectionViewCell.swift in Sources */,
+				094CC6172BD9A7F3005A5CC0 /* UserProfileCollectionCell.swift in Sources */,
 				0935AB302BD871CE00357FF0 /* ProfileSettingsViewModel.swift in Sources */,
 				094CC6132BD97A28005A5CC0 /* ProfileSettingsFooter.swift in Sources */,
 			);

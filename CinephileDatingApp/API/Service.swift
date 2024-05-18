@@ -10,30 +10,37 @@ import Firebase
 
 struct Service {
     
+    // MARK: - Get Data
+    
     static func fetchUser(withUid uid: String, completion: @escaping (User) -> ()) {
-        Constraints.Firebase.COLLECTION_USERS.document(uid).getDocument() { (snapshot, error) in
+        Constants.Firebase.COLLECTION_USERS.document(uid).getDocument() { (snapshot, error) in
             guard let dict = snapshot?.data() else { return }
             let user = User(dict: dict)
             completion(user)
         }
     }
     
-    static func fetchUsers(completion: @escaping ([User]) -> ()) {
+    static func fetchUsers(for user: User, completion: @escaping ([User]) -> ()) {
         var users = [User]()
         
-        Constraints.Firebase.COLLECTION_USERS.getDocuments { (snapshot, error) in
+        Constants.Firebase.COLLECTION_USERS.getDocuments { (snapshot, error) in
             snapshot?.documents.forEach { document in
                 let dict = document.data()
-                let user = User(dict: dict)
+                let newUser = User(dict: dict)
                 
-                users.append(user)
+                if user.uid != newUser.uid {
+                    users.append(newUser)
+                }
                 
-                if users.count == snapshot?.documents.count {
+                guard let usersCount = snapshot?.documents.count else { return }
+                if users.count == usersCount - 1 {
                     completion(users)
                 }
             }
         }
     }
+    
+    // MARK: - Set Data
     
     static func saveUserData(user: User, completion: @escaping (Error?) -> ()) {
         let data = ["uid": user.uid,
@@ -44,20 +51,19 @@ struct Service {
                     "maxSeekingAge": user.maxSeekingAge,
                     "imageURLs": user.profileImageURLs] as [String: Any]
         
-        Constraints.Firebase.COLLECTION_USERS.document(user.uid).setData(data, completion: completion)
+        Constants.Firebase.COLLECTION_USERS.document(user.uid).setData(data, completion: completion)
     }
     
     static func saveSwipe(forUser user: User, isLike: Bool) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let shouldLike = isLike ? 1 : 0
         
-        Constraints.Firebase.COLLECTION_SWIPES.document(uid).getDocument() { (snapshot, error) in
+        Constants.Firebase.COLLECTION_SWIPES.document(uid).getDocument() { (snapshot, error) in
             let data = [user.uid : isLike]
             
             if snapshot?.exists == true {
-                Constraints.Firebase.COLLECTION_SWIPES.document(uid).updateData(data)
+                Constants.Firebase.COLLECTION_SWIPES.document(uid).updateData(data)
             } else {
-                Constraints.Firebase.COLLECTION_SWIPES.document(uid).setData(data)
+                Constants.Firebase.COLLECTION_SWIPES.document(uid).setData(data)
             }
         }
     }

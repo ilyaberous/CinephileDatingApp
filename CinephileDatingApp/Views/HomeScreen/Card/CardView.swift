@@ -18,8 +18,8 @@ protocol CardViewDelegate: AnyObject {
     func cardView(_ cardView: CardView, didLikeUser: Bool)
 }
 
-class CardView: UIView, CardViewModelDelegate {
-
+class CardView: UIView {
+    
     //MARK: - Properties
     
     weak var delegate: CardViewDelegate?
@@ -27,14 +27,14 @@ class CardView: UIView, CardViewModelDelegate {
     private let gradientLayer = CAGradientLayer()
     
     private lazy var imageView: UIImageView = {
-       let imgV = UIImageView()
-       // imgV.image = viewModel.user.images.first
+        let imgV = UIImageView()
+        // imgV.image = viewModel.user.images.first
         imgV.contentMode = .scaleAspectFill
         return imgV
     }()
     
     private lazy var infoLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.attributedText = viewModel.userInfoAttributedText
         label.numberOfLines = 2
         return label
@@ -56,7 +56,15 @@ class CardView: UIView, CardViewModelDelegate {
         return stack
     }()
     
-    private lazy var barStackView = SegmentedBarView(numberOfSegments: viewModel.imageURLs.count)
+    private lazy var barStackView = SegmentedBarView(numberOfSegments: viewModel.imageCount)
+    
+    private lazy var cardStateColor: UIView = {
+        let view = UIView()
+        view.alpha = 0.0
+        return view
+    }()
+    
+    private let animator = UIViewPropertyAnimator(duration: 1.0, curve: .linear)
     
     //MARK: - Lifecycle
     
@@ -64,8 +72,9 @@ class CardView: UIView, CardViewModelDelegate {
         self.viewModel = viewModel
         super.init(frame: .zero)
         setupUI()
+        configureEndAnimationsForCardStateColor()
         configureGestureRecognizer()
-        self.viewModel.delegate = self
+        //self.viewModel.delegate = self
     }
     
     override func layoutSubviews() {
@@ -74,6 +83,11 @@ class CardView: UIView, CardViewModelDelegate {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        animator.stopAnimation(true)
+        print("DEBUG: cardview was deleted!!!")
     }
     
     //MARK: - Setup UI
@@ -102,6 +116,11 @@ class CardView: UIView, CardViewModelDelegate {
         }
         
         configureBarStackView()
+        
+        addSubview(cardStateColor)
+        cardStateColor.snp.makeConstraints { make in
+            make.width.height.equalToSuperview()
+        }
         
     }
     
@@ -142,22 +161,50 @@ class CardView: UIView, CardViewModelDelegate {
                 self.transform = offScreenTransform
             } else {
                 self.transform = .identity
+                self.animator.fractionComplete = 0
+                self.sendSubviewToBack(self.cardStateColor)
+                print("DEBUG: fractionComplete in ending: \(self.animator.fractionComplete), \(self.animator.state.rawValue)")
             }
+            
         }) { _ in
+            //self.cardStateColor.alpha = 0
             if shouldDismissCard {
-//                self.removeFromSuperview()
+                //                self.removeFromSuperview()
                 let didLike = direction == .right
                 self.delegate?.cardView(self, didLikeUser: didLike)
             }
         }
     }
     
+    private func configureEndAnimationsForCardStateColor() {
+        animator.addAnimations {
+            self.cardStateColor.alpha = 1.0
+        }
+        animator.pausesOnCompletion = true
+    }
+    
     private func panCard(sender: UIPanGestureRecognizer) {
+        bringSubviewToFront(cardStateColor)
+        
         let translation = sender.translation(in: nil)
         let degrees: CGFloat = translation.x / 20
         let angle = degrees * .pi / 100
         let rotationTransform = CGAffineTransform(rotationAngle: angle)
         self.transform = rotationTransform.translatedBy(x: translation.x, y: 0)
+        print(translation.x)
+        
+        if translation.x < 0 {
+            cardStateColor.backgroundColor = .red
+            animator.fractionComplete = translation.x / -400
+            print("DEBUG: animator fractionComplete: \(animator.fractionComplete), \(animator.state.rawValue)")
+            print("DEBUG: isStopping \(animator.isInterruptible)")
+            //print("DEBUG: \(animator.isRunning)")
+            print("DEBUG: \(translation.x / -400)")
+            print("DEBUG: alpha \(cardStateColor.alpha)")
+        } else {
+            cardStateColor.backgroundColor = .green
+            animator.fractionComplete = translation.x / 400
+        }
     }
     
     
@@ -181,6 +228,9 @@ class CardView: UIView, CardViewModelDelegate {
     }
     
     @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
+        guard viewModel.imageCount != 0 else {
+            return
+        }
         let location = sender.location(in: nil).x
         let shouldShowNextPhoto = location > self.frame.width / 2
         
@@ -193,11 +243,12 @@ class CardView: UIView, CardViewModelDelegate {
         imageView.sd_setImage(with: viewModel.imageURL)
         barStackView.setHighlighted(index: viewModel.index)
     }
+}
     
     //MARK: - Delegate methods
     
-    func setImage(img: UIImage) {
-        self.imageView.image = img
-    }
-    
-}
+//extension CardView: CardViewModelDelegate {
+//    func setImage(img: UIImage) {
+//        self.imageView.image = img
+//    }
+//}

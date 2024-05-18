@@ -13,6 +13,7 @@ class RegisterViewController: UIViewController {
     
     //MARK: - Properties
     
+    weak var delegate: LoginRegisterDelegate?
     var viewModel = RegisterViewModel()
     let nameTextField = CustomTextField(placeholder: "Имя")
     let emailTextField = CustomTextField(placeholder: "Адрес электронной почты", shouldEmailKeyboard: true)
@@ -113,6 +114,7 @@ class RegisterViewController: UIViewController {
             }
             
             print("DEBUG: Sucessesfull registration")
+            self.delegate?.switchAppToNewUser()
             self.dismiss(animated: true)
         }
     }
@@ -159,7 +161,7 @@ extension RegisterViewController: AuthenticationDelegate {
     }
 }
 
-//MARK: - UIImagePickerController Deelegate Methods
+//MARK: - UIImagePickerController Delegate Methods
 
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     

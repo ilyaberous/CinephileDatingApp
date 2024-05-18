@@ -24,8 +24,8 @@ class UserProfileViewController: UIViewController {
         cv.delegate = self
         cv.dataSource = self
         cv.showsHorizontalScrollIndicator = false
-        cv.register(userProfileCollectionViewCell.self,
-                    forCellWithReuseIdentifier: userProfileCollectionViewCell.identifier)
+        cv.register(UserProfileCollectionCell.self,
+                    forCellWithReuseIdentifier: UserProfileCollectionCell.identifier)
         return cv
     }()
     
@@ -39,7 +39,7 @@ class UserProfileViewController: UIViewController {
     private let infoLabel: UILabel = {
        let label = UILabel()
         label.numberOfLines = 0
-        label.font = UIFont(name: Constraints.Fonts.Montserrat.bold, size: 32)
+        label.font = UIFont(name: Constants.Fonts.Montserrat.bold, size: 32)
         return label
     }()
     
@@ -47,14 +47,14 @@ class UserProfileViewController: UIViewController {
        let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byCharWrapping
-        label.font = UIFont(name: Constraints.Fonts.Montserrat.medium, size: 18)
+        label.font = UIFont(name: Constants.Fonts.Montserrat.medium, size: 18)
         return label
     }()
     
     private let titleForBio: UILabel = {
        let label = UILabel()
         label.text = "О себе"
-        label.font = UIFont(name: Constraints.Fonts.Montserrat.bold, size: 24)
+        label.font = UIFont(name: Constants.Fonts.Montserrat.bold, size: 24)
         return label
     }()
     
@@ -74,7 +74,7 @@ class UserProfileViewController: UIViewController {
          return stack
     }()
     
-    private lazy var barStackView = SegmentedBarView(numberOfSegments: viewModel.imageCount)
+    private lazy var barStackView = SegmentedBarView(numberOfSegments: viewModel.imageCountForProgressBar)
     
     // MARK: - Lifecycle
     
@@ -92,6 +92,8 @@ class UserProfileViewController: UIViewController {
         setupUI()
         loadUserData()
     }
+    
+    // MARK: - Setup UI
     
     private func setupUI() {
         view.backgroundColor = .white
@@ -165,10 +167,14 @@ class UserProfileViewController: UIViewController {
         return btt
     }
     
+    // MARK: - Helpers
+    
     private func loadUserData() {
         infoLabel.attributedText = viewModel.userDetailsAttributedString
         bioLabel.text = viewModel.bio
     }
+    
+    // MARK: - Selectors
     
     @objc private func dissmisButtonTapped(sender: UIButton) {
         dismiss(animated: true)
@@ -187,6 +193,8 @@ class UserProfileViewController: UIViewController {
     }
 }
 
+// MARK: - CollectionView DataSource Methods
+
 extension UserProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.imageCount
@@ -194,7 +202,7 @@ extension UserProfileViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView
-            .dequeueReusableCell(withReuseIdentifier: userProfileCollectionViewCell.identifier, for: indexPath) as! userProfileCollectionViewCell
+            .dequeueReusableCell(withReuseIdentifier: UserProfileCollectionCell.identifier, for: indexPath) as! UserProfileCollectionCell
         
         cell.imageView.sd_setImage(with: viewModel.imageURLs[indexPath.row])
         print("DEBUG: view is \(view.frame.width), collectioview is \(cell.imageView.frame.width)")
@@ -202,11 +210,19 @@ extension UserProfileViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - CollectionView Delegate Methods
+
 extension UserProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard viewModel.imageCountForProgressBar != 0 else {
+            return
+        }
         barStackView.setHighlighted(index: indexPath.row)
+        print(indexPath.row)
     }
 }
+
+// MARK: - CollectionView DelegateFlowLayout Methods
 
 extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -219,5 +235,9 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }

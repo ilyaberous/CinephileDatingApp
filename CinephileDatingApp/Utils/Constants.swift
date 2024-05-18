@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 
-struct Constraints {
+struct Constants {
     
     enum Fonts: String {
         case Montserrat

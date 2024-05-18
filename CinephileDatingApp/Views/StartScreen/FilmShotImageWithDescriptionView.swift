@@ -7,21 +7,21 @@
 
 import UIKit
 
-class FilmShotImageWithDescription: UIView {
+class FilmShotImageWithDescriptionView: UIView {
     
     //MARK: - Properties
     
     private var titleLabel: UILabel = {
        let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Constraints.Fonts.Montserrat.medium, size: 16)
+        label.font = UIFont(name: Constants.Fonts.Montserrat.medium, size: 16)
         return label
     }()
 
     private var descLabel: UILabel = {
        let label = UILabel()
         label.textColor = UIColor(white: 1, alpha: 0.34)
-        label.font = UIFont(name: Constraints.Fonts.Montserrat.medium, size: 12)
+        label.font = UIFont(name: Constants.Fonts.Montserrat.medium, size: 12)
         return label
     }()
     

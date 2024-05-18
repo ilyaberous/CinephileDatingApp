@@ -39,7 +39,7 @@ class HomeNavigationStackView: UIStackView {
     let button: UILabel = {
         let btt = UILabel()
         btt.text = "OBSCURA"
-        btt.font = UIFont(name: Constraints.Fonts.Montserrat.bold, size: 24)
+        btt.font = UIFont(name: Constants.Fonts.Montserrat.bold, size: 24)
         btt.textColor = .black
         return btt
     }()

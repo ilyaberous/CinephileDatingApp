@@ -7,14 +7,19 @@
 
 import UIKit
 import Firebase
+import JGProgressHUD
 
 
 class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var user: User?
-    var viewModels = [CardViewModel?]() {
+    private var user: User? {
+        didSet {
+            fetchUsers()
+        }
+    }
+    var viewModels = [CardViewModel]() {
         didSet {
             print("DEBUG: users \(viewModels)")
             setupCards()
@@ -48,57 +53,74 @@ class HomeViewController: UIViewController {
     private var topCardView: CardView?
     private var cardViews = [CardView]()
     
+    lazy var updateDataQueue: DispatchQueue = {
+        let queue = DispatchQueue(label: "user_data_update")
+        queue.async {
+            self.fetchUser()
+        }
+        
+        queue.async {
+            self.fetchUsers()
+        }
+        return queue
+    }()
+    
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         checkIsUserLoggedIn()
-        //logOut()
-        setupUI()
-        setupDelegates()
-//        fetchUsers()
-//        fetchUser()
+        print("DEBUG: fetch users was called")
     }
+//
+//    override func viewWillAppear(_ animated: Bool) {
+//        cardTemplateView.subviews.forEach { card in card.removeAllA }
+//        print("DEBUG: view will appear")
+////        cardTemplateView.subviews.forEach { $0.removeFromSuperview() }
+////        view.layoutSubviews()
+////        //templateView.subviews.forEach { $0.removeFromSuperview() }
+////        //view.layoutSubviews()
+////        checkIsUserLoggedIn()
+////        fetchUser()
+////        fetchUsers()
+//    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        cardTemplateView.subviews.forEach { $0.removeFromSuperview() }
-        view.layoutSubviews()
-        //templateView.subviews.forEach { $0.removeFromSuperview() }
-        //view.layoutSubviews()
-        checkIsUserLoggedIn()
-        fetchUser()
-        fetchUsers()
-    }
-    
-    // MARK: - FirebaseAuth Methods
+    // MARK: - Firebase Methods
     
     private func fetchUsers() {
-        Service.fetchUsers { users in
+        guard let user = user else { return }
+        print("DEBUG: user for viewModels: \(user.name)")
+        Service.fetchUsers(for: user) { users in
             print("DEBUG: \(users)")
-            self.viewModels = users.map({ user in
-                if user.uid != self.user?.uid {
-                    return CardViewModel(user: user)
-                }
-                
-                return nil
+            self.viewModels = users.map({ anotherUser in
+                    return CardViewModel(user: anotherUser)
             })
             print("DEBUG: View models count \(self.viewModels.count)")
         }
         
         print("DEBUG: View models count \(self.viewModels.count)")
     }
+    
     private func fetchUser() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Service.fetchUser(withUid: uid) { user in
             self.user = user
+            print("DEBUG: user \(user.name) set")
+            //self.fetchUsers()
         }
+        print("DEBUG: fetchUser finished")
     }
+    
     private func checkIsUserLoggedIn() {
         if Auth.auth().currentUser == nil {
 //            clearHomeView()
             presentStartViewController()
         } else {
             print("DEBUG: User is logged in \(Auth.auth().currentUser?.email)")
+            fetchUser()
+            //logOut()
+            setupUI()
+            setupDelegates()
         }
     }
     
@@ -110,13 +132,13 @@ class HomeViewController: UIViewController {
         }
     }
     
-    //MARK: - Helper Methods
+    //MARK: - Helpers
     
     private func clearHomeView() {
         cardTemplateView.subviews.forEach { $0.removeFromSuperview() }
         view.layoutSubviews()
-        self.user = nil
-        self.viewModels = []
+//        self.user = nil
+//        self.viewModels = []
     }
     
     private func performSwipeAnimation(shouldLike: Bool) {
@@ -140,19 +162,19 @@ class HomeViewController: UIViewController {
     
     private func presentStartViewController() {
         DispatchQueue.main.async {
-            let vc = UINavigationController(rootViewController: StartViewController())
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: false)
+            let vc = StartViewController()
+            vc.delegate = self
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: false)
         }
     }
     
     // MARK: - Setup UI
     
     private func setupCards() {
+        clearHomeView()
         viewModels.forEach { viewModel in
-            guard let viewModel = viewModel else {
-                return
-            }
             let card = CardView(viewModel: viewModel)
             cardTemplateView.addSubview(card)
             card.delegate = self
@@ -184,7 +206,7 @@ class HomeViewController: UIViewController {
         verticalStack.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
-        
+
     }
 }
 
@@ -213,8 +235,10 @@ extension HomeViewController: ProfileSettingsControllerDelegate {
     func settingsControllerWantsToLogOut(_ controller: ProfileSettingsViewController) {
         controller.dismiss(animated: true)
         logOut()
-        clearHomeView()
+        print("DEBUG: users: \(viewModels.count)")
+        //clearHomeView()
         checkIsUserLoggedIn()
+        clearHomeView()
     }
     
     func settingsController(_ controller: ProfileSettingsViewController, wantsToUpdate user: User) {
@@ -229,8 +253,11 @@ extension HomeViewController: ProfileSettingsControllerDelegate {
 extension HomeViewController: CardViewDelegate {
     func cardView(_ cardView: CardView, didLikeUser: Bool) {
         cardView.removeFromSuperview()
-        self.cardViews.removeAll(where: { view == $0} )
+        print("DEBUG: cardview with name \(cardView.viewModel.user.name) was deleted")
+        self.cardViews.removeAll(where: { cardView == $0} )
         
+        print("DEBUG: cardviews count: \(cardViews.count)")
+        cardViews.forEach { el in print(el) }
         guard let user = topCardView?.viewModel.user else { return }
         Service.saveSwipe(forUser: user, isLike: didLikeUser)
         
@@ -243,6 +270,8 @@ extension HomeViewController: CardViewDelegate {
         present(vc, animated: true)
     }
 }
+
+// MARK: - HomeStackView Delegate Methods
 
 extension HomeViewController: HomeActionsStackViewDelegate {
     func handleLike() {
@@ -268,6 +297,13 @@ extension HomeViewController: HomeActionsStackViewDelegate {
         print("DEBUG: handle")
     }
     
-    
 }
 
+// MARK: - Login and Register Delegate Methods
+
+extension HomeViewController: LoginRegisterDelegate {
+    func switchAppToNewUser() {
+        fetchUser()
+        //fetchUsers()
+    }
+}

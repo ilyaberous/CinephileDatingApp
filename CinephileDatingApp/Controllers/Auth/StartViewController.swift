@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol LoginRegisterDelegate: AnyObject {
+    func switchAppToNewUser()
+}
+
 class StartViewController: UIViewController {
 
     //MARK: - Properties
     
+    weak var delegate: LoginRegisterDelegate?
     private lazy var button: UIButton = {
         let btt = LogRegButton(label: "Войти с эл. почтой")
         btt.switchToEnabledState()
@@ -30,9 +35,9 @@ class StartViewController: UIViewController {
     private let appInfoLabel: UILabel = {
        let label = UILabel()
         label.numberOfLines = 0
-        let titleFont = UIFont(name: Constraints.Fonts.Montserrat.bold, size: 60) ?? UIFont.systemFont(ofSize: 60, weight: .medium)
-        let descFont = UIFont(name: Constraints.Fonts.Montserrat.bold, size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .medium)
-        print(Constraints.Fonts.Montserrat.medium)
+        let titleFont = UIFont(name: Constants.Fonts.Montserrat.bold, size: 60) ?? UIFont.systemFont(ofSize: 60, weight: .medium)
+        let descFont = UIFont(name: Constants.Fonts.Montserrat.bold, size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .medium)
+        print(Constants.Fonts.Montserrat.medium)
         let attributedText = NSMutableAttributedString(string: "OBSCURA", attributes: [.font: titleFont])
         attributedText.append(NSAttributedString(string: "\nЗНАКОМСТВА \nДЛЯ \nКИНОМАНОВ", attributes: [.font: descFont]))
         label.attributedText = attributedText
@@ -50,7 +55,7 @@ class StartViewController: UIViewController {
         return imgV
     }()
     
-    private var filmImageWithDesc = FilmShotImageWithDescription(title: "ИВАНОВО ДЕТСТВО", director: "АНДРЕЙ ТАРКОВСКИЙ", year: 1963, image: UIImage(named: "tarkovski")!)
+    private var filmImageWithDesc = FilmShotImageWithDescriptionView(title: "ИВАНОВО ДЕТСТВО", director: "АНДРЕЙ ТАРКОВСКИЙ", year: 1963, image: UIImage(named: "tarkovski")!)
     
     private let loginBttStack: UIStackView = {
         let stack = UIStackView()
@@ -89,9 +94,9 @@ class StartViewController: UIViewController {
     
     private lazy var goToRegistrationLabel: UILabel = {
        let label = UILabel()
-        let attributedText = NSMutableAttributedString(string: "Еще не имеешь аккаунта? ", attributes: [.font : UIFont(name: Constraints.Fonts.Montserrat.medium, size: 12)!, .foregroundColor: UIColor.black])
+        let attributedText = NSMutableAttributedString(string: "Еще не имеешь аккаунта? ", attributes: [.font : UIFont(name: Constants.Fonts.Montserrat.medium, size: 12)!, .foregroundColor: UIColor.black])
         
-        let registrationLink = NSAttributedString(string: "Зарегистрируйся", attributes: [.font: UIFont(name: Constraints.Fonts.Montserrat.bold, size: 12)!, .foregroundColor: UIColor.black])
+        let registrationLink = NSAttributedString(string: "Зарегистрируйся", attributes: [.font: UIFont(name: Constants.Fonts.Montserrat.bold, size: 12)!, .foregroundColor: UIColor.black])
         
         attributedText.append(registrationLink)
         
@@ -101,6 +106,13 @@ class StartViewController: UIViewController {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapLabelToRegistration))
         label.addGestureRecognizer(gesture)
         return label
+    }()
+    
+    private lazy var blur: UIVisualEffectView = {
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        blur.frame = view.frame
+        blur.alpha = 0
+        return blur
     }()
     
     //MARK: - LifeCycle
@@ -168,10 +180,31 @@ class StartViewController: UIViewController {
         
     }
     
+    private func showBlur() {
+        view.addSubview(blur)
+        view.bringSubviewToFront(blur)
+        
+        UIView.animate(withDuration: 0.3, delay: 0) {
+            self.blur.alpha = 1
+        }
+        
+        view.layoutSubviews()
+    }
+    
+    private func removeBlur() {
+        UIView.animate(withDuration: 0.3, delay: 0) {
+            self.blur.alpha = 0
+        }
+        
+        blur.removeFromSuperview()
+        view.layoutSubviews()
+    }
+    
     //MARK: - Selectors
     
     @objc private func presentModal(sender: UIButton) {
         let loginViewController = LoginViewController()
+        loginViewController.delegate = delegate
         let nav = UINavigationController(rootViewController: loginViewController)
         nav.modalPresentationStyle = .pageSheet
         
@@ -180,8 +213,13 @@ class StartViewController: UIViewController {
             sheet.detents = [.medium()]
         }
         
-        let barItem = UIBarButtonItem(image: UIImage(systemName: "multiply")?.withTintColor(.black, renderingMode: .alwaysOriginal), primaryAction: UIAction(handler: { _ in self.dismiss(animated: true)}))
+        let barItem = UIBarButtonItem(image: UIImage(systemName: "multiply")?.withTintColor(.black, renderingMode: .alwaysOriginal), primaryAction: UIAction(handler: { _ in
+            self.removeBlur()
+            self.dismiss(animated: true)
+        }))
+        
         loginViewController.navigationItem.setRightBarButton(barItem, animated: true)
+        showBlur()
         present(nav, animated: true)
     }
     
@@ -190,7 +228,9 @@ class StartViewController: UIViewController {
         let tapText = "Зарегестрируйся"
         if sender.didTapAttributedTextInLabel(label: goToRegistrationLabel, inRange: NSRange(location: notTapText.count, length: tapText.count + 1)) {
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-            navigationController?.pushViewController(RegisterViewController(), animated: true)
+            let vc = RegisterViewController()
+            vc.delegate = delegate
+            navigationController?.pushViewController(vc, animated: true)
         } else {
             print("Not working!")
         }

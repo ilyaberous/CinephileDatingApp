@@ -38,7 +38,7 @@ struct AuthService {
                             "uid": uid,
                             "age": 18] as [String: Any]
                 
-                Constraints.Firebase.COLLECTION_USERS.document(uid).setData(data, completion: completion)
+                Constants.Firebase.COLLECTION_USERS.document(uid).setData(data, completion: completion)
             }
         }
     }

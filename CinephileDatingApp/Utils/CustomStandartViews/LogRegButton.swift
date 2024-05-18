@@ -11,7 +11,7 @@ class LogRegButton: UIButton {
     init(label: String) {
         super.init(frame: .zero)
         
-        let font = UIFont(name: Constraints.Fonts.Montserrat.bold, size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold)
+        let font = UIFont(name: Constants.Fonts.Montserrat.bold, size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold)
         let attributedTitle = NSAttributedString(string: label, attributes: [.font: font])
         setAttributedTitle(attributedTitle, for: .normal)
         switchToDisenabledState()
@@ -32,7 +32,7 @@ class LogRegButton: UIButton {
     
     func switchToEnabledState() {
             isEnabled = true
-            backgroundColor = Constraints.Colors.customBlack
+            backgroundColor = Constants.Colors.customBlack
     }
     
     func switchToDisenabledState() {

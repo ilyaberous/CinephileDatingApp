@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
 
     //MARK: - Properties
     
+    weak var delegate: LoginRegisterDelegate?
     let viewModel: LoginViewModel = LoginViewModel()
     let emailTextField = CustomTextField(placeholder: "Адрес электронной почты", shouldEmailKeyboard: true)
     let passwordTextField = CustomTextField(placeholder: "Пароль", shouldSecurity: true)
@@ -78,6 +79,7 @@ class LoginViewController: UIViewController {
             }
 //            self?.navigationController?.dismiss(animated: true)
             hud.dismiss(animated: true)
+            self?.delegate?.switchAppToNewUser()
             self?.presentingViewController?.presentingViewController?.dismiss(animated: true)
         }
     }

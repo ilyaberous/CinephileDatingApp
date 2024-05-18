@@ -18,6 +18,9 @@ struct UserProfileViewModel {
     var imageURLs: [URL] {
         return user.profileImageURLs.map({ URL(string: $0)! })
     }
+    var imageCountForProgressBar: Int {
+        return user.profileImageURLs.count != 1 ? user.profileImageURLs.count : 0
+    }
     
     var imageCount: Int {
         return user.profileImageURLs.count
@@ -26,8 +29,8 @@ struct UserProfileViewModel {
     init(user: User) {
         self.user = user
         let attributedText = NSMutableAttributedString(string: user.name,
-                                                                     attributes: [.font: UIFont(name: Constraints.Fonts.Montserrat.bold, size: 32)])
-        attributedText.append(NSAttributedString(string: " \(user.age)", attributes: [.font: UIFont(name: Constraints.Fonts.Montserrat.medium, size: 28)]))
+                                                                     attributes: [.font: UIFont(name: Constants.Fonts.Montserrat.bold, size: 32)])
+        attributedText.append(NSAttributedString(string: " \(user.age)", attributes: [.font: UIFont(name: Constants.Fonts.Montserrat.medium, size: 28)]))
         
         self.userDetailsAttributedString = attributedText
         self.bio = user.bio

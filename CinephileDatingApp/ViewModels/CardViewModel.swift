@@ -30,6 +30,9 @@ class CardViewModel {
     }()
     
     let imageURLs: [String]
+    var imageCount: Int {
+        return imageURLs.count != 1 ? imageURLs.count : 0
+    }
     var imageURL: URL?
     
     private var imageIndex = 0

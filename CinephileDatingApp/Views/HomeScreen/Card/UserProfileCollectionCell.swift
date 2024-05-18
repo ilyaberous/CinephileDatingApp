@@ -7,7 +7,7 @@
 
 import UIKit
 
-class userProfileCollectionViewCell: UICollectionViewCell {
+class UserProfileCollectionCell: UICollectionViewCell {
 
     static let identifier = "user_profile_cell"
     
@@ -17,6 +17,7 @@ class userProfileCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         
         addSubview(imageView)
         imageView.snp.makeConstraints { make in
