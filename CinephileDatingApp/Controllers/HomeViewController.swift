@@ -132,6 +132,22 @@ class HomeViewController: UIViewController {
         }
     }
     
+    func saveSwipeAndCheckForMatch(forUser user: User, didLike: Bool) {
+        Service.saveSwipe(forUser: user, isLike: didLike) { error in
+            self.topCardView = self.cardViews.last
+            
+            guard didLike == true else { return }
+            
+            Service.checkIfMatchExists(forUser: user) { didMatch in
+                print("DEBUG: Users did match..")
+                guard let currentUser = self.user else { return }
+                self.presentMatchViewController(for: currentUser, and: user)
+                
+                Service.uploadMatch(user: currentUser, matchedUser: user)
+            }
+        }
+    }
+    
     //MARK: - Helpers
     
     private func clearHomeView() {
@@ -209,6 +225,22 @@ class HomeViewController: UIViewController {
         print("DEBUG: setuped UI ")
 
     }
+    
+    private func presentMatchViewController(for user: User, and matchedUser: User) {
+        let matchVC = MatchViewController(viewModel: MatchViewModel(user: user, matchUser: matchedUser))
+        matchVC.delegate = self
+        
+        let nav = UINavigationController(rootViewController: matchVC)
+        nav.modalPresentationStyle = .fullScreen
+        nav.modalTransitionStyle = .coverVertical
+        
+        let barItem = UIBarButtonItem(image: UIImage(systemName: "multiply")?.withTintColor(.black, renderingMode: .alwaysOriginal), primaryAction: UIAction(handler: { _ in
+            self.dismiss(animated: true)
+        }))
+        
+        matchVC.navigationItem.setRightBarButton(barItem, animated: true)
+        present(nav, animated: true)
+    }
 }
 
 // MARK: - HomeNavigationStackView Delegate Methods
@@ -224,7 +256,11 @@ extension HomeViewController: HomeNavigationStackViewDelegate {
     }
     
     func showMessages() {
-        print("DEBUG: show messages")
+        guard let user = self.user else { return }
+        let vc = MessagesViewController(user: user)
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
     }
     
     
@@ -260,7 +296,7 @@ extension HomeViewController: CardViewDelegate {
         print("DEBUG: cardviews count: \(cardViews.count)")
         cardViews.forEach { el in print(el) }
         guard let user = topCardView?.viewModel.user else { return }
-        Service.saveSwipe(forUser: user, isLike: didLikeUser)
+        saveSwipeAndCheckForMatch(forUser: user, didLike: didLikeUser)
         
         self.topCardView = cardViews.last
     }
@@ -281,14 +317,14 @@ extension HomeViewController: HomeActionsStackViewDelegate {
         
         performSwipeAnimation(shouldLike: true)
         
-        Service.saveSwipe(forUser: topCard.viewModel.user, isLike: true)
+        saveSwipeAndCheckForMatch(forUser: topCard.viewModel.user, didLike: true)
         print("DEBUG: like user \(topCard.viewModel.user.name)")
     }
     
     func handleDislike() {
         guard let topCard = topCardView else { return }
         performSwipeAnimation(shouldLike: false)
-        Service.saveSwipe(forUser: topCard.viewModel.user, isLike: false)
+        Service.saveSwipe(forUser: topCard.viewModel.user, isLike: false, completion: nil)
         print("DEBUG: handle")
     }
     
@@ -318,16 +354,27 @@ extension HomeViewController: UserProfileViewControllerDelegate {
     func profileController(_ controller: UserProfileViewController, didLikeUser user: User) {
         controller.dismiss(animated: true) {
             self.performSwipeAnimation(shouldLike: true)
-            Service.saveSwipe(forUser: user, isLike: true)
+            self.saveSwipeAndCheckForMatch(forUser: user, didLike: true)
         }
     }
     
     func profileController(_ controller: UserProfileViewController, didDislikeUser user: User) {
         controller.dismiss(animated: true) {
             self.performSwipeAnimation(shouldLike: false)
-            Service.saveSwipe(forUser: user, isLike: false)
+            Service.saveSwipe(forUser: user, isLike: false, completion: nil)
         }
     }
     
     
+}
+
+
+// MARK: - MatchViewController Delegate Methods
+
+extension HomeViewController: MatchViewControllerDelegate {
+    func openMessagesViewController(withClosing controller: MatchViewController) {
+        print("DEBUG: match view controller closed!")
+        controller.navigationController?.dismiss(animated: true)
+        showMessages()
+    }
 }

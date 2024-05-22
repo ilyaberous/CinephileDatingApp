@@ -44,10 +44,11 @@ class HomeNavigationStackView: UIStackView {
         return btt
     }()
     
-    let messageButton: UIButton = {
+    lazy var messageButton: UIButton = {
         let btt = UIButton(type: .system)
         let profileImage = UIImage(named: "top_right_messages")?.withRenderingMode(.alwaysOriginal)
         btt.setImage(profileImage, for: .normal)
+        btt.addTarget(self, action: #selector(messageButtonTapped), for: .touchUpInside)
         return btt
     }()
     
@@ -81,5 +82,9 @@ class HomeNavigationStackView: UIStackView {
     
     @objc private func profileButtonTapped(sender: UIButton) {
         delegate?.showSettings()
+    }
+    
+    @objc private func messageButtonTapped(sender: UIButton) {
+        delegate?.showMessages()
     }
 }

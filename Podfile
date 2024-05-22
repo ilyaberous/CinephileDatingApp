@@ -19,5 +19,6 @@ target 'CinephileDatingApp' do
   # Others
   pod 'SDWebImage', '~> 4.4.2'
   pod 'JGProgressHUD', '~> 2.0.3'
+  pod 'MessageKit'
 
 end
