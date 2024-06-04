@@ -10,23 +10,29 @@ Swift, UIKit, MVVM, CocoaPods, Firebase (Cloud Firstore, Cloud Storage, Auth), S
 1) Клонируйте репозиторий
 
 ```bash
-$ https://github.com/ilyaberous/CinephileDatingApp.git
+$ git clone https://github.com/ilyaberous/CinephileDatingApp.git
 ```
 
-2) Установите Podfile
+2) Перейдите в папку склонированного репозитория
+
+```bash
+$ cd CinephileDatingApp
+```
+
+3) Установите Podfile
 
 ```bash
 $ pod install
 ```
 
-3) Откройте .xcworkspace файл
+4) Откройте .xcworkspace файл
 
 ```bash
 $ open CinephileDatingApp.xcworkspace
 ```
 
-3) Скомпилируйте и запустите приложение
+5) Скомпилируйте и запустите приложение
 
-4) Готово!
+6) Готово!
 
 > Если возникнут вопросы по коду или установке, сообщите мне в tg: @ilyaberous.
