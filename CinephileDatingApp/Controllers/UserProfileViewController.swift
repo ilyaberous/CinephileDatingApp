@@ -65,7 +65,7 @@ class UserProfileViewController: UIViewController {
         return label
     }()
     
-    private lazy var bioStack: UIStackView = {
+    private lazy var bioSection: UIStackView = {
        let stack = UIStackView(arrangedSubviews: [titleForBio, bioLabel])
         stack.axis = .vertical
         stack.spacing = 8
@@ -73,8 +73,25 @@ class UserProfileViewController: UIViewController {
         return stack
     }()
     
+    private let favoriteFilms = FavoriteFilmsStack()
+    
+    private let favoriteFilmsTitle: UILabel = {
+       let label = UILabel()
+        label.text = "Любимые фильмы"
+        label.font = UIFont(name: Constants.Fonts.Montserrat.bold, size: 24)
+        return label
+    }()
+    
+    private lazy var favoriteFilmsSection: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [favoriteFilmsTitle, favoriteFilms])
+         stack.axis = .vertical
+         stack.spacing = 16
+         stack.contentMode = .left
+         return stack
+    }()
+    
     private lazy var stack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [infoLabel, bioStack])
+        let stack = UIStackView(arrangedSubviews: [infoLabel, bioSection, favoriteFilmsSection])
          stack.axis = .vertical
          stack.spacing = 16
          stack.contentMode = .left
@@ -82,6 +99,20 @@ class UserProfileViewController: UIViewController {
     }()
     
     private lazy var barStackView = SegmentedBarView(numberOfSegments: viewModel.imageCountForProgressBar)
+    
+    private let container: UIView = {
+        let view = UIView()
+        view.backgroundColor = .red
+        return view
+    }()
+    
+    private let scrollView: UIScrollView = {
+       let sv = UIScrollView()
+        sv.backgroundColor = .green
+//        sv.alwaysBounceVertical = true
+//        sv.showsVerticalScrollIndicator = false
+        return sv
+    }()
     
     // MARK: - Lifecycle
     
@@ -105,23 +136,40 @@ class UserProfileViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
-        view.addSubview(collectionView)
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in make.edges.equalToSuperview() }
         
+        scrollView.addSubview(container)
+        container.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalTo(view.frame.width)
+        }
+
+        container.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+            make.height.equalTo(self.view.frame.width + 100)
+        }
+
         configureBarStackView()
-        
-        view.addSubview(dismissButton)
+
+        container.addSubview(dismissButton)
         dismissButton.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 40, height: 40))
             make.top.equalTo(collectionView.snp.bottom).offset(-20)
-            make.right.equalToSuperview().inset(16)
+            make.right.equalTo(container).inset(16)
         }
-        
-        view.addSubview(stack)
+
+        container.addSubview(stack)
         stack.snp.makeConstraints { make in
             make.top.equalTo(collectionView.snp.bottom).offset(16)
-            make.left.right.equalToSuperview().inset(16)
+            make.left.right.equalTo(container).inset(16)
         }
-        
+
+        favoriteFilms.snp.makeConstraints { make in
+            make.height.equalTo(1000)
+        }
+
         configureBottomControlls()
     }
     
@@ -149,19 +197,20 @@ class UserProfileViewController: UIViewController {
         stack.distribution = .fillEqually
         stack.spacing = -32
         
-        view.addSubview(stack)
+        container.addSubview(stack)
         
         stack.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 300, height: 80))
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(container.snp.centerX)
             make.bottom.equalToSuperview().offset(-34)
         }
     }
     
     private func configureBarStackView() {
-        view.addSubview(barStackView)
+        container.addSubview(barStackView)
         barStackView.snp.makeConstraints { make in
-            make.left.right.top.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.left.right.equalTo(collectionView).offset(8)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(4)
         }
         
@@ -179,6 +228,7 @@ class UserProfileViewController: UIViewController {
     private func loadUserData() {
         infoLabel.attributedText = viewModel.userDetailsAttributedString
         bioLabel.text = viewModel.bio
+        favoriteFilms.configure(with: FavoriteFilmsViewModel(user: user))
     }
     
     // MARK: - Selectors

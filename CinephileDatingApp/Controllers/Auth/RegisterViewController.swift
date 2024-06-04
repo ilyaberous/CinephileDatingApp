@@ -106,7 +106,7 @@ class RegisterViewController: UIViewController {
         
         let credentials = AuthCredentials(email: email, password: password, name: name, profileImage: image)
         
-        AuthService.registerUser(withCredentials: credentials) { [weak self] error in
+        AuthService.shared.registerUser(withCredentials: credentials) { [weak self] error in
             guard let self = self else { return }
             if let error = error {
                 print("DEBUG: Error registration user \(error.localizedDescription)")

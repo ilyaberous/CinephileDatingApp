@@ -8,11 +8,15 @@
 import UIKit
 import Firebase
 
-struct Service {
+struct DataService {
     
     // MARK: - Get Data
     
-    static func fetchUser(withUid uid: String, completion: @escaping (User) -> ()) {
+    static let shared = DataService()
+    
+    private init() {}
+    
+    func fetchUser(withUid uid: String, completion: @escaping (User) -> ()) {
         Constants.Firebase.COLLECTION_USERS.document(uid).getDocument() { (snapshot, error) in
             guard let dict = snapshot?.data() else { return }
             let user = User(dict: dict)
@@ -20,7 +24,7 @@ struct Service {
         }
     }
     
-    static func fetchUsers(for user: User, completion: @escaping ([User]) -> ()) {
+    func fetchUsers(for user: User, completion: @escaping ([User]) -> ()) {
         var users = [User]()
         
         let query = Constants.Firebase.COLLECTION_USERS
@@ -43,7 +47,7 @@ struct Service {
         }
     }
     
-    static func fetchSwipes(completion: @escaping([String: Bool]) -> ()) {
+    func fetchSwipes(completion: @escaping([String: Bool]) -> ()) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         Constants.Firebase.COLLECTION_SWIPES.document(uid).getDocument() { (snapshot, error) in
@@ -55,7 +59,7 @@ struct Service {
         }
     }
     
-    static func fetchMatches(completion: @escaping ([Match]) -> ()) {
+    func fetchMatches(completion: @escaping ([Match]) -> ()) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document(uid).collection("matches").getDocuments { (snapshot, error) in
@@ -68,19 +72,20 @@ struct Service {
     
     // MARK: - Set Data
     
-    static func saveUserData(user: User, completion: @escaping (Error?) -> ()) {
+    func saveUserData(user: User, completion: @escaping (Error?) -> ()) {
         let data = ["uid": user.uid,
                     "name": user.name,
                     "age": user.age,
                     "bio": user.bio,
                     "minSeekingAge": user.minSeekingAge,
                     "maxSeekingAge": user.maxSeekingAge,
-                    "imageURLs": user.profileImageURLs] as [String: Any]
+                    "imageURLs": user.profileImageURLs,
+                    "favoriteFilmsURLs": user.favoriteFilmsURLs] as [String: Any]
         
         Constants.Firebase.COLLECTION_USERS.document(user.uid).setData(data, completion: completion)
     }
     
-    static func saveSwipe(forUser user: User, isLike: Bool, completion: ((Error?) -> ())?) {
+    func saveSwipe(forUser user: User, isLike: Bool, completion: ((Error?) -> ())?) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         Constants.Firebase.COLLECTION_SWIPES.document(uid).getDocument() { (snapshot, error) in
@@ -94,7 +99,7 @@ struct Service {
         }
     }
     
-    static func checkIfMatchExists(forUser user: User, completion: @escaping (Bool) -> ()) {
+    func checkIfMatchExists(forUser user: User, completion: @escaping (Bool) -> ()) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         Constants.Firebase.COLLECTION_SWIPES.document(user.uid).getDocument { (snapshot, error) in
@@ -104,7 +109,7 @@ struct Service {
         }
     }
     
-    static func uploadMatch(user: User, matchedUser: User) {
+    func uploadMatch(user: User, matchedUser: User) {
         guard let matchedUserProfileImageURL = matchedUser.profileImageURLs.first else { return }
         guard let userProfileImageURL = user.profileImageURLs.first else { return }
         
@@ -123,7 +128,7 @@ struct Service {
             .document(user.uid).setData(userData)
     }
  
-    static func uploadImage(image: UIImage, completion: @escaping (String) -> ()) {
+    func uploadImage(image: UIImage, completion: @escaping (String) -> ()) {
         guard let imageData = image.jpegData(compressionQuality: 0.75) else { return }
         let fileName = NSUUID().uuidString
         let ref = Storage.storage().reference(withPath: "/images/\(fileName)")

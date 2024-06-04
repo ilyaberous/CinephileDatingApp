@@ -72,7 +72,7 @@ class LoginViewController: UIViewController {
         
         hud.show(in: view)
         
-        AuthService.logUserIn(withEmail: email, password: password) { [weak self] (result, error) in
+        AuthService.shared.logUserIn(withEmail: email, password: password) { [weak self] (result, error) in
             if let error = error {
                 print("DEBUG: Error login user \(error.localizedDescription)")
                 return

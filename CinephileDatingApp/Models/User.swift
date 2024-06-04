@@ -17,6 +17,7 @@ struct User {
     var minSeekingAge: Int
     var maxSeekingAge: Int
     var bio: String
+    var favoriteFilmsURLs: [String]
     
     init(dict: [String: Any]) {
         self.name = dict["name"] as? String ?? ""
@@ -27,5 +28,6 @@ struct User {
         self.minSeekingAge = dict["minSeekingAge"] as? Int ?? 16
         self.maxSeekingAge = dict["maxSeekingAge"] as? Int ?? 60
         self.bio = dict["bio"] as? String ?? ""
+        self.favoriteFilmsURLs = dict["favoriteFilmsURLs"] as? [String] ?? [String]()
     }
 }

@@ -1,22 +1,15 @@
 //
-//  ProfileSettingCell.swift
+//  AgeSliderCell.swift
 //  CinephileDatingApp
 //
-//  Created by Ilya on 24.04.2024.
+//  Created by Ilya on 22.05.2024.
 //
 
 import UIKit
 
-protocol ProfileSettingsCellDelegate: AnyObject {
-    func settingsCell(_ cell: ProfileSettingsCell, wantsToUpdateUserWith value: String, for section: SettingsSections)
-    func settingsCell(_ cell: ProfileSettingsCell, wantsToUpdateAgeRangeWith sender: UISlider)
-}
-
-class ProfileSettingsCell: UITableViewCell {
+class AgeSliderCell: UITableViewCell {
     
-    // MARK: - Properties
-    
-    static let identifier = "setting_cell"
+    static let identifier = "age_slider_cell"
     
     weak var delegate: ProfileSettingsCellDelegate?
     
@@ -25,23 +18,6 @@ class ProfileSettingsCell: UITableViewCell {
             configure()
         }
     }
-    
-    lazy var inputField: UITextField = {
-       let tf = UITextField()
-        tf.borderStyle = .none
-        tf.font = .systemFont(ofSize: 20)
-        
-        tf.placeholder = "Введите текст"
-        
-        let leftView = UIView()
-        leftView.snp.makeConstraints { make in make.size.equalTo(CGSize(width: 16, height: 16))}
-        tf.leftView = leftView
-        tf.leftViewMode = .always
-        
-        tf.addTarget(self, action: #selector(userInfoUpdated), for: .editingChanged)
-        
-        return tf
-    }()
     
     let minAgeLabel: UILabel = {
         let label = UILabel()
@@ -82,13 +58,16 @@ class ProfileSettingsCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .white
-        
+        backgroundColor = .systemGroupedBackground
+        layer.masksToBounds = false
+        contentView.layer.cornerRadius = 8
+        contentView.clipsToBounds = true
+        contentView.backgroundColor = .white
         selectionStyle = .none
         
-        contentView.addSubview(inputField)
-        inputField.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        contentView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.bottom.equalToSuperview()
         }
         
         contentView.addSubview(sliderStack)
@@ -115,12 +94,6 @@ class ProfileSettingsCell: UITableViewCell {
     // MARK: - Helper Methods
     
     private func configure() {
-        inputField.isHidden = viewModel.shouldHideInpurField
-        sliderStack.isHidden = viewModel.shouldHideSlider
-        
-        inputField.placeholder = viewModel.placeholderText
-        inputField.text = viewModel.value
-        
         minAgeLabel.text = viewModel.minAgeLabelText(forValue: viewModel.minAgeSliderValue)
         maxAgeLabel.text = viewModel.maxAgeLabelText(forValue: viewModel.maxAgeSliderValue)
         
@@ -138,11 +111,5 @@ class ProfileSettingsCell: UITableViewCell {
         }
         
         delegate?.settingsCell(self, wantsToUpdateAgeRangeWith: sender)
-    }
-    
-    @objc private func userInfoUpdated(sender: UITextField) {
-        print("DEBUG: Input is \(sender.text) for \(viewModel.section)")
-        guard let value = sender.text else { return }
-        delegate?.settingsCell(self, wantsToUpdateUserWith: value, for: viewModel.section)
     }
 }

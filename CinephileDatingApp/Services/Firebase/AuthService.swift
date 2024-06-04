@@ -16,14 +16,18 @@ struct AuthCredentials {
     let profileImage: UIImage
 }
 struct AuthService {
+
+    static let shared = AuthService()
     
-    static func logUserIn(withEmail email: String, password: String, completion: @escaping (AuthDataResult?, Error?) -> ()) {
+    private init() {}
+    
+    func logUserIn(withEmail email: String, password: String, completion: @escaping (AuthDataResult?, Error?) -> ()) {
         Auth.auth().signIn(withEmail: email, password: password, completion: completion)
     }
     
-    static func registerUser(withCredentials credentials: AuthCredentials,
+    func registerUser(withCredentials credentials: AuthCredentials,
                              completion: @escaping ((Error?)) -> ()) {
-        Service.uploadImage(image: credentials.profileImage) { imgURL in
+        DataService.shared.uploadImage(image: credentials.profileImage) { imgURL in
             Auth.auth().createUser(withEmail: credentials.email, password: credentials.password) { (result, error) in
                 if let error = error {
                     print("DEBUG: Error signing up \(error.localizedDescription)")
@@ -35,6 +39,7 @@ struct AuthService {
                 let data = ["email": credentials.email,
                             "name": credentials.name,
                             "imageURLs": [imgURL],
+                            "favoriteFilmsURLs": Array(repeating: "", count: 4),
                             "uid": uid,
                             "age": 18] as [String: Any]
                 

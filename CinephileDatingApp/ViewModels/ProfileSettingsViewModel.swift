@@ -29,16 +29,8 @@ enum SettingsSections: Int, CaseIterable {
 struct ProfileSettingsViewModel {
     private let user: User
     let section: SettingsSections
-    let placeholderText: String
+    var placeholderText: String = ""
     var value: String?
-    
-    var shouldHideInpurField: Bool {
-        return section == .ageRange
-    }
-    
-    var shouldHideSlider: Bool {
-        return section != .ageRange
-    }
     
     var minAgeSliderValue: Float {
         return Float(user.minSeekingAge)
@@ -60,18 +52,17 @@ struct ProfileSettingsViewModel {
         self.user = user
         self.section = section
         
-        placeholderText = "Введите \(section.description.lowercased())"
-        
         switch section {
         case .name:
             value = user.name
+            placeholderText = "Введите свое \(section.description.lowercased())"
         case .age:
             value = "\(user.age)"
+            placeholderText = "Введите свой \(section.description.lowercased())"
         case .bio:
             value = user.bio
-        case .favoriteFilms:
-            value = ""
-        case .ageRange:
+            placeholderText = "Расскажите \(section.description.lowercased())"
+        case .favoriteFilms, .ageRange:
             break
         }
     }

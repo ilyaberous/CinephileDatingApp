@@ -22,6 +22,7 @@ class ProfileSettingsViewController: UITableViewController {
     private let imagePicker = UIImagePickerController()
     private var imgIndex = 0
     private var user: User
+    private var currentFilmCardTag: Int = 0
     
     weak var delegate: ProfileSettingsControllerDelegate?
     
@@ -65,7 +66,10 @@ class ProfileSettingsViewController: UITableViewController {
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 300)
         tableView.tableFooterView = footerView
         footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 88)
-        tableView.register(ProfileSettingsCell.self, forCellReuseIdentifier: ProfileSettingsCell.identifier)
+        tableView.register(NameAgeCell.self, forCellReuseIdentifier: NameAgeCell.identifier)
+        tableView.register(AgeSliderCell.self, forCellReuseIdentifier: AgeSliderCell.identifier)
+        tableView.register(BioCell.self, forCellReuseIdentifier: BioCell.identifier)
+        tableView.register(FavoriteFilmsCell.self, forCellReuseIdentifier: FavoriteFilmsCell.identifier)
     }
     
     // MARK: - Firebase database
@@ -77,7 +81,7 @@ class ProfileSettingsViewController: UITableViewController {
         
         let urlsCount = self.user.profileImageURLs.count
         
-        Service.uploadImage(image: img) { imageURL in
+        DataService.shared.uploadImage(image: img) { imageURL in
             if self.imgIndex <= urlsCount - 1 {
                 self.user.profileImageURLs[self.imgIndex] = imageURL
             } else {
@@ -100,7 +104,7 @@ class ProfileSettingsViewController: UITableViewController {
         hud.textLabel.text = "Сохранение данных"
         hud.show(in: view)
         
-        Service.saveUserData(user: user) { [weak self] error in
+        DataService.shared.saveUserData(user: user) { [weak self] error in
             guard let self = self else { return }
             self.delegate?.settingsController(self, wantsToUpdate: self.user)
             hud.dismiss(animated: true)
@@ -121,13 +125,33 @@ extension ProfileSettingsViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ProfileSettingsCell.identifier, for: indexPath) as! ProfileSettingsCell
-        
-        guard let section = SettingsSections(rawValue: indexPath.section) else { return cell }
+        guard let section = SettingsSections(rawValue: indexPath.section) else { return UITableViewCell() }
         let viewModel = ProfileSettingsViewModel(user: user, section: section)
-        cell.viewModel = viewModel
-        cell.delegate = self
-        return cell
+        
+        switch section {
+        case .name, .age:
+            let nameAgecell = tableView.dequeueReusableCell(withIdentifier: NameAgeCell.identifier) as! NameAgeCell
+            nameAgecell.viewModel = viewModel
+            nameAgecell.delegate = self
+            return nameAgecell
+        case .bio:
+            let bioCell = tableView.dequeueReusableCell(withIdentifier: BioCell.identifier) as! BioCell
+            bioCell.viewModel = viewModel
+            bioCell.delegate = self
+            return bioCell
+        case .favoriteFilms:
+            let favoriteFilmsCell = tableView.dequeueReusableCell(withIdentifier: FavoriteFilmsCell.identifier) as! FavoriteFilmsCell
+            favoriteFilmsCell.delegate = self
+            let viewModel = FavoriteFilmsViewModel(user: user)
+            favoriteFilmsCell.viewModel = viewModel
+            return favoriteFilmsCell
+        case .ageRange:
+            let ageSliderCell = tableView.dequeueReusableCell(withIdentifier: AgeSliderCell.identifier) as! AgeSliderCell
+            ageSliderCell.viewModel = viewModel
+            ageSliderCell.delegate = self
+            return ageSliderCell
+        }
+
     }
 }
 
@@ -145,7 +169,21 @@ extension ProfileSettingsViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let section = SettingsSections(rawValue: indexPath.section) else { return 0 }
-        return section == .ageRange ? 96 : 44
+        switch section {
+        case .name, .age:
+            return 44
+        case .ageRange:
+            return 96
+        case .bio:
+            return 150
+        case .favoriteFilms:
+            return ((self.view.frame.width - 32) / 4) * 1.5
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // this will turn on `masksToBounds` just before showing the cell
+        cell.contentView.layer.masksToBounds = true
     }
 }
 
@@ -176,7 +214,8 @@ extension ProfileSettingsViewController: UIImagePickerControllerDelegate, UINavi
 // MARK: - ProfileSettingsCell Delegate Methods
 
 extension ProfileSettingsViewController: ProfileSettingsCellDelegate {
-    func settingsCell(_ cell: ProfileSettingsCell, wantsToUpdateAgeRangeWith sender: UISlider) {
+    func settingsCell(_ cell: UITableViewCell, wantsToUpdateAgeRangeWith sender: UISlider) {
+        guard let cell = cell as? AgeSliderCell else { return }
         if sender == cell.minAgeSlider {
             user.minSeekingAge = Int(sender.value)
         } else {
@@ -184,7 +223,7 @@ extension ProfileSettingsViewController: ProfileSettingsCellDelegate {
         }
     }
     
-    func settingsCell(_ cell: ProfileSettingsCell, wantsToUpdateUserWith value: String, for section: SettingsSections) {
+    func settingsCell(_ cell: UITableViewCell, wantsToUpdateUserWith value: String, for section: SettingsSections) {
         switch section {
         case .name:
             user.name = value
@@ -193,7 +232,6 @@ extension ProfileSettingsViewController: ProfileSettingsCellDelegate {
         case .bio:
             user.bio = value
         case .favoriteFilms, .ageRange:
-            print("adadsdads")
             break
         }
     }
@@ -204,5 +242,32 @@ extension ProfileSettingsViewController: ProfileSettingsCellDelegate {
 extension ProfileSettingsViewController: ProfileSettingsFooterDelegate {
     func handleLogOut() {
         delegate?.settingsControllerWantsToLogOut(self)
+    }
+}
+
+// MARK: - FavoriteFilmsCell Delegate Methods
+
+
+extension ProfileSettingsViewController: FavoriteFilmsCellDelegate {
+    func favoriteFilmCell(_ cell: FavoriteFilmsCell, wantsToPresentSearchViewControllerForFilmCardWith tag: Int) {
+        self.currentFilmCardTag = tag
+        let vc = SearchFilmsViewController()
+        vc.delegate = self
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+}
+
+// MARK: - SearchViewController Delegate Methods
+
+extension ProfileSettingsViewController: SearchFilmsViewControllerDelegate {
+    func searchFilmsController(_ controller: SearchFilmsViewController, wantsToUpdateFavoriteFilmsWith filmURL: String?) {
+        guard let filmURL else {
+            return
+        }
+        user.favoriteFilmsURLs[currentFilmCardTag] = filmURL
+        tableView.reloadData()
+        controller.dismiss(animated: true)
     }
 }

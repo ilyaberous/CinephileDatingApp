@@ -92,7 +92,7 @@ class HomeViewController: UIViewController {
     private func fetchUsers() {
         guard let user = user else { return }
         print("DEBUG: user for viewModels: \(user.name)")
-        Service.fetchUsers(for: user) { users in
+        DataService.shared.fetchUsers(for: user) { users in
             print("DEBUG: \(users)")
             self.viewModels = users.map({ anotherUser in
                     return CardViewModel(user: anotherUser)
@@ -105,7 +105,7 @@ class HomeViewController: UIViewController {
     
     private func fetchUser() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        Service.fetchUser(withUid: uid) { user in
+        DataService.shared.fetchUser(withUid: uid) { user in
             self.user = user
             print("DEBUG: user \(user.name) set")
             //self.fetchUsers()
@@ -133,17 +133,17 @@ class HomeViewController: UIViewController {
     }
     
     func saveSwipeAndCheckForMatch(forUser user: User, didLike: Bool) {
-        Service.saveSwipe(forUser: user, isLike: didLike) { error in
+        DataService.shared.saveSwipe(forUser: user, isLike: didLike) { error in
             self.topCardView = self.cardViews.last
             
             guard didLike == true else { return }
             
-            Service.checkIfMatchExists(forUser: user) { didMatch in
+            DataService.shared.checkIfMatchExists(forUser: user) { didMatch in
                 print("DEBUG: Users did match..")
                 guard let currentUser = self.user else { return }
                 self.presentMatchViewController(for: currentUser, and: user)
                 
-                Service.uploadMatch(user: currentUser, matchedUser: user)
+                DataService.shared.uploadMatch(user: currentUser, matchedUser: user)
             }
         }
     }
@@ -324,7 +324,7 @@ extension HomeViewController: HomeActionsStackViewDelegate {
     func handleDislike() {
         guard let topCard = topCardView else { return }
         performSwipeAnimation(shouldLike: false)
-        Service.saveSwipe(forUser: topCard.viewModel.user, isLike: false, completion: nil)
+        DataService.shared.saveSwipe(forUser: topCard.viewModel.user, isLike: false, completion: nil)
         print("DEBUG: handle")
     }
     
@@ -361,7 +361,7 @@ extension HomeViewController: UserProfileViewControllerDelegate {
     func profileController(_ controller: UserProfileViewController, didDislikeUser user: User) {
         controller.dismiss(animated: true) {
             self.performSwipeAnimation(shouldLike: false)
-            Service.saveSwipe(forUser: user, isLike: false, completion: nil)
+            DataService.shared.saveSwipe(forUser: user, isLike: false, completion: nil)
         }
     }
     

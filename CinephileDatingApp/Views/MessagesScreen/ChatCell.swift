@@ -119,6 +119,7 @@ class ChatCell: UITableViewCell {
     }
     
     public func configure(with chat: Chat, and user: User) {
+        print("DEBUG: chat avatar is \(chat.profileImageURL.debugDescription)")
         image.sd_setImage(with: URL(string: chat.profileImageURL))
         name.text = chat.name
         sendTime.text = convertTimestampToRightDateString(from: chat.lastMessageTimestamp)

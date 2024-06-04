@@ -92,7 +92,7 @@ class ChatViewController: MessageKit.MessagesViewController {
         setupDelegates()
         configureMessagesControllerAndCollectionView()
         configureMessageInputBar()
-        listenForMessages()
+        configureMessagesListener()
     }
     
     // MARK: - SetupUI
@@ -104,108 +104,16 @@ class ChatViewController: MessageKit.MessagesViewController {
         configureNavigationBarImageAndName()
     }
     
-    // MARK: - Firebase
+    // MARK: - MessagesService Methods
     
-    private func listenForMessages() {
-        messagesListener = Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document(userID!).collection("messages").document(chat.matchedUserID).collection("messages").order(by: "timestamp", descending: false).addSnapshotListener { [weak self] (snapshot, error) in
-            guard let self = self else { return }
-            if let error = error {
-                print("DEBUG: Error listening for messages: \(error)")
-                return
-            }
-            
-            print("DEBUG: snapshot documents: \(snapshot?.documents)")
-            self.messages = snapshot?.documents.compactMap { document in
-                let data = document.data()
-                
-                guard let senderID = data["senderID"] as? String,
-                      let text = data["text"] as? String,
-                      let timestamp = data["timestamp"] as? Timestamp,
-                      let isRead = data["isRead"] as? Bool else { return nil }
-                
-                let sender = Sender(senderId: senderID, displayName: "")
-                let sentData = timestamp.dateValue()
-                let message = Message(sender: sender, messageId: document.documentID, sentDate: sentData, kind: .text(text), isRead: isRead)
-                return message
-            } ?? []
-        }
-    }
-    
-    private func createMessage(text: String) {
-        let messageID = UUID().uuidString
-        let timestamp = Timestamp(date: Date())
-        
-        let message: [String: Any] = [
-            "senderID": userID!,
-            "text": text,
-            "timestamp": timestamp,
-            "isRead": false
-            ]
-
-        
-        let batch = Firestore.firestore().batch()
-        
-        let chatUpdateData: [String: Any] = [
-            "lastMessage": text,
-            "authorMessage": user.uid,
-            "lastMessageTimestamp": timestamp,
-            "isRead": false
-            ]
-        
-        let currentUserChatRef = Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document(userID!).collection("chats").document(chat.matchedUserID)
-        let matchedUserChatRef = Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document(chat.matchedUserID).collection("chats").document(userID!)
-        
-        let currentUserMessageRef = Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document(userID!).collection("messages").document(chat.matchedUserID).collection("messages").document(messageID)
-        let matchedUserMessageRef = Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document(chat.matchedUserID).collection("messages").document(userID!).collection("messages").document(messageID)
-        
-        currentUserChatRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                batch.setData(message, forDocument: currentUserMessageRef)
-                batch.setData(message, forDocument: matchedUserMessageRef)
-                batch.updateData(chatUpdateData, forDocument: currentUserChatRef)
-                batch.updateData(chatUpdateData, forDocument: matchedUserChatRef)
-                
-                batch.commit { error in
-                    if let error = error {
-                        print("DEBUG: Error sending message: \(error.localizedDescription)")
-                    } else {
-                        print("DEBUG: Sucsesfully sending message")
-                        print("DEBUG: uid message: \(messageID)")
-                    }
-                }
-            } else {
-                let initialChatDataForCurrentUser: [String: Any] = [
-                    "matchedUserID": self.chat.matchedUserID,
-                    "name": self.chat.name,
-                    "profileImageURL": self.chat.profileImageURL,
-                    "lastMessage": text,
-                    "authorMessage": self.user.uid,
-                    "lastMessageTimestamp": timestamp,
-                    "isRead": false
-                ]
-                
-                let initialChatDataForMatchedUser: [String: Any] = [
-                    "matchedUserID": self.userID,
-                    "name": self.user.name,
-                    "profileImageURL": self.user.profileImageURLs[0],
-                    "lastMessage": text,
-                    "authorMessage": self.user.uid,
-                    "lastMessageTimestamp": timestamp,
-                    "isRead": false
-                ]
-                
-                batch.setData(initialChatDataForCurrentUser, forDocument: currentUserChatRef)
-                batch.setData(initialChatDataForMatchedUser, forDocument: matchedUserChatRef)
-                batch.setData(message, forDocument: currentUserMessageRef)
-                batch.setData(message, forDocument: matchedUserMessageRef)
-
-                batch.commit { error in
-                    if let error = error {
-                        print("Error creating chat and sending message: \(error)")
-                    } else {
-                        print("Chat created and message sent successfully")
-                    }
-                }
+    private func configureMessagesListener() {
+        messagesListener = MessagesService.shared.createMessagesListener(userID: user.uid, companionID: chat.matchedUserID)
+        { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let messages):
+                self?.messages = messages
             }
         }
     }
@@ -252,11 +160,16 @@ class ChatViewController: MessageKit.MessagesViewController {
         sendButton.setImage(sendIMG, for: .normal)
         sendButton.imageView?.contentMode = .scaleAspectFill
         sendButton.onTouchUpInside() { [weak self] _ in
-            guard let text = self?.messageInputBar.inputTextView.text else {
+            guard let self else {
                 return
             }
-            self?.createMessage(text: text.trimmingCharacters(in: .whitespacesAndNewlines))
-            self?.messageInputBar.inputTextView.text = ""
+            guard let text = self.messageInputBar.inputTextView.text else {
+                return
+            }
+            MessagesService.shared.createMessage(sender: self.user, companion: User(dict: ["name": self.chat.name, "uid": self.chat.matchedUserID, "profileImageURLs": [self.chat.profileImageURL]]), text: text.trimmingCharacters(in: .whitespacesAndNewlines)) { error in
+                print(error.localizedDescription)
+            }
+            self.messageInputBar.inputTextView.text = ""
         }
         messageInputBar.setRightStackViewWidthConstant(to: 35, animated: true)
         messageInputBar.rightStackView.alignment = .center

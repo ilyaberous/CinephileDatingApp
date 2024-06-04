@@ -44,7 +44,7 @@ class MessagesViewController: UITableViewController {
         configureTableView()
         configureNavigationBar()
         fetchMatches()
-        listenForChats()
+        createChatsListener()
     }
     
     // MARK: - SetupUI
@@ -80,64 +80,32 @@ class MessagesViewController: UITableViewController {
     // MARK: - Firebase
     
     func fetchMatches() {
-        Service.fetchMatches { matches in
+        DataService.shared.fetchMatches { matches in
             self.headerView.matches = matches
         }
     }
     
-    func listenForChats() {
+    func createChatsListener() {
         print("DEBUG: listenForCharts!")
-        chatsListener = Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document("\(userID!)").collection("chats").order(by: "lastMessageTimestamp", descending: true).addSnapshotListener { [weak self] (snapshot, error) in
-            guard let self = self else { return }
-            if let error = error {
-                print("DEBUG: Error listening for chats: \(error)")
-                return
+        chatsListener = MessagesService.shared.createChatsListener(userID: self.userID!) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let chats):
+                self?.chats = chats
+                print("DEBUG: chats \(chats.first?.name)")
             }
-            
-           // print("DEBUG: snapshot documents: \(snapshot?.documents)")
-            self.chats = snapshot?.documents.compactMap { document in
-                let data = document.data()
-                let chat = Chat(
-                    //userID: data["userID"] as? String  ?? "",
-                    matchedUserID: data["matchedUserID"] as? String ?? "",
-                    name: data["name"] as? String  ?? "",
-                    profileImageURL: data["profileImageURL"] as? String ?? "",
-                    lastMessage: data["lastMessage"] as? String  ?? "",
-                    authorMessage: data["authorMessage"] as? String ?? "",
-                    lastMessageTimestamp: data["lastMessageTimestamp"] as? Timestamp ?? nil,
-                    isRead: data["isRead"] as? Bool ?? false
-                    )
-                return chat
-            } ?? []
         }
-    }
-    
-    private func makeLastMessageRead(messageID: String, matchedUserID: String) {
-        Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document(userID!).collection("messages").document(matchedUserID).collection("messages").document(messageID).updateData(
-            ["isRead": true]
-        )
-        
-        Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document(userID!).collection("chats").document(matchedUserID).updateData(
-            ["isRead": true]
-        )
-        
-        Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document(matchedUserID).collection("messages").document(userID!).collection("messages").document(messageID).updateData(
-            ["isRead": true]
-        )
-        
-        Constants.Firebase.COLLECTION_MATCHES_MESSAGES.document(matchedUserID).collection("chats").document(userID!).updateData(
-            ["isRead": true]
-        )
     }
     
     // MARK: - Helpers
     
-    private func presentChat(chat: Chat, with user: User) {
+    private func presentChatViewController(chat: Chat, with user: User) {
         let chatVC = ChatViewController(user: user, chat: chat)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.pushViewController(chatVC, animated: true)
         guard let messageID = chat.lastMessage else { return }
-        makeLastMessageRead(messageID: messageID, matchedUserID: chat.matchedUserID)
+        MessagesService.shared.makeMessageRead(messageID: messageID, userID: userID!, matchedUserID: chat.matchedUserID)
     }
     
     // MARK: - Selectors
@@ -162,7 +130,7 @@ extension MessagesViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        presentChat(chat: chats[indexPath.row], with: user)
+        presentChatViewController(chat: chats[indexPath.row], with: user)
     }
 }
 
@@ -190,7 +158,7 @@ extension MessagesViewController {
 
 extension MessagesViewController: MatchesHeaderDelegate {
     func matchesHeaderWantsToPresentChat(withhUser match: Match) {
-        presentChat(chat: Chat(matchedUserID: match.uid, name: match.name, profileImageURL: match.profileImageURL, lastMessage: nil, authorMessage: nil, lastMessageTimestamp: nil, isRead: nil), with: user)
+        presentChatViewController(chat: Chat(matchedUserID: match.uid, name: match.name, profileImageURL: match.profileImageURL, lastMessage: nil, authorMessage: nil, lastMessageTimestamp: nil, isRead: nil), with: user)
     }
 }
 
