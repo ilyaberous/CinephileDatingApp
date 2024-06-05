@@ -12,32 +12,32 @@ protocol SearchFilmsViewControllerDelegate: AnyObject {
 }
 
 class SearchFilmsViewController: UIViewController {
-
+    
     weak var delegate: SearchFilmsViewControllerDelegate?
     private var films = [Film]()
     
-    private var SearchBar: UISearchController = {
+    private var searchBar: UISearchController = {
         let sb = UISearchController()
         sb.searchBar.placeholder = "Введите название фильма"
         sb.searchBar.searchBarStyle = .minimal
         return sb
     }()
-        
-    private var MovieCollectionView: UICollectionView = {
+    
+    private var filmsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
         //layout.itemSize = CGSize(width: UIScreen.main.bounds.width/3 - 10, height: 200)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.register(SearchFilmCell.self, forCellWithReuseIdentifier: SearchFilmCell.ID)
+        cv.register(SearchFilmCell.self, forCellWithReuseIdentifier: SearchFilmCell.identifier)
         return cv
     }()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        MovieCollectionView.delegate = self
-        MovieCollectionView.dataSource = self
+        filmsCollectionView.delegate = self
+        filmsCollectionView.dataSource = self
         setupUI()
     }
     
@@ -45,16 +45,16 @@ class SearchFilmsViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureNavigationBar()
         
-        view.addSubview(MovieCollectionView)
-        MovieCollectionView.snp.makeConstraints { make in
+        view.addSubview(filmsCollectionView)
+        filmsCollectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
     func configureNavigationBar () {
         navigationItem.title  = "Поиск фильма"
-        navigationItem.searchController = SearchBar
-        SearchBar.searchResultsUpdater = self
+        navigationItem.searchController = searchBar
+        searchBar.searchResultsUpdater = self
         
         let backBarItem = UIBarButtonItem(image: UIImage(systemName: "multiply")?.withTintColor(.black, renderingMode: .alwaysOriginal), primaryAction: UIAction(handler: { _ in
             self.dismiss(animated: true)
@@ -62,12 +62,6 @@ class SearchFilmsViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = backBarItem
     }
-    
-    // MARK: - Firestore methods
-    
-//    private func setFavoriteFilm(for userID: String, filmPosterURL: String, filmCardTag: Int) {
-//        delegate?.searchFilmsController(self, wantsToUpdateFavoriteFilmsWith: <#T##String#>)
-//    }
 }
 
 // MARK: - UICollectionView Delegate Methods
@@ -88,7 +82,7 @@ extension SearchFilmsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchFilmCell.ID, for: indexPath) as? SearchFilmCell{
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchFilmCell.identifier, for: indexPath) as? SearchFilmCell{
             cell.updateCell(posterURL: films[indexPath.row].poster?.previewUrl)
             return cell
         }
@@ -126,7 +120,7 @@ extension SearchFilmsViewController: UISearchResultsUpdating {
                     if let titles = titles {
                         self.films = titles
                         DispatchQueue.main.async {
-                            self.MovieCollectionView.reloadData()
+                            self.filmsCollectionView.reloadData()
                         }
                
                     }

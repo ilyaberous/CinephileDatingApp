@@ -9,9 +9,9 @@ import UIKit
 
 class SearchFilmCell: UICollectionViewCell {
     
-    static let ID = "MovieCell"
+    static let identifier = "film_cell"
     
-    private var MoviePosterImageView: UIImageView = {
+    private var filmPosterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(systemName: "house")
@@ -29,8 +29,8 @@ class SearchFilmCell: UICollectionViewCell {
 
     func setupUI() {
         backgroundColor = .systemGroupedBackground
-        addSubview(MoviePosterImageView)
-        MoviePosterImageView.snp.makeConstraints { make in
+        addSubview(filmPosterImageView)
+        filmPosterImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
@@ -38,7 +38,7 @@ class SearchFilmCell: UICollectionViewCell {
     func updateCell(posterURL: String?){
         if let posterURL = posterURL {
             guard let CompleteURL = URL(string: posterURL) else {return}
-            self.MoviePosterImageView.sd_setImage(with: CompleteURL)
+            self.filmPosterImageView.sd_setImage(with: CompleteURL)
         }
     }
 }

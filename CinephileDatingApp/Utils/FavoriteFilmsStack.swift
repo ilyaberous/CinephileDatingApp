@@ -85,4 +85,13 @@ class FavoriteFilmsStack: UIStackView {
             button.sd_setImage(with: URL(string: viewModel.filmsURLs[button.tag]), for: .normal)
         }
     }
+    
+    func configure(with filmsURLs: [URL]) {
+        for button in stack.subviews {
+            guard let button = button as? UIButton else {
+                return
+            }
+            button.sd_setImage(with: filmsURLs[button.tag], for: .normal)
+        }
+    }
 }

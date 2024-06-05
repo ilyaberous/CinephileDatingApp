@@ -74,18 +74,6 @@ class HomeViewController: UIViewController {
         setupDelegates()
         print("DEBUG: fetch users was called")
     }
-//
-//    override func viewWillAppear(_ animated: Bool) {
-//        cardTemplateView.subviews.forEach { card in card.removeAllA }
-//        print("DEBUG: view will appear")
-////        cardTemplateView.subviews.forEach { $0.removeFromSuperview() }
-////        view.layoutSubviews()
-////        //templateView.subviews.forEach { $0.removeFromSuperview() }
-////        //view.layoutSubviews()
-////        checkIsUserLoggedIn()
-////        fetchUser()
-////        fetchUsers()
-//    }
     
     // MARK: - Firebase Methods
     
@@ -115,12 +103,9 @@ class HomeViewController: UIViewController {
     
     private func checkIsUserLoggedIn() {
         if Auth.auth().currentUser == nil {
-//            clearHomeView()
             presentStartViewController()
         } else {
-            print("DEBUG: User is logged in \(Auth.auth().currentUser?.email)")
             fetchUser()
-            //logOut()
         }
     }
     
@@ -153,8 +138,6 @@ class HomeViewController: UIViewController {
     private func clearHomeView() {
         cardTemplateView.subviews.forEach { $0.removeFromSuperview() }
         view.layoutSubviews()
-//        self.user = nil
-//        self.viewModels = []
     }
     
     private func performSwipeAnimation(shouldLike: Bool) {
@@ -273,7 +256,6 @@ extension HomeViewController: ProfileSettingsControllerDelegate {
         controller.dismiss(animated: true)
         logOut()
         print("DEBUG: users: \(viewModels.count)")
-        //clearHomeView()
         checkIsUserLoggedIn()
         clearHomeView()
     }
@@ -302,7 +284,7 @@ extension HomeViewController: CardViewDelegate {
     }
     
     func cardView(_ cardView: CardView, wantsToShowUserProfileFor user: User) {
-        let vc = UserProfileViewController(user: user)
+        let vc = UserProfileViewController(user: user)//UserProfileViewController(user: user)
         vc.modalPresentationStyle = .fullScreen
         vc.delegate = self
         present(vc, animated: true)
@@ -330,8 +312,6 @@ extension HomeViewController: HomeActionsStackViewDelegate {
     
     func handleRefresh() {
         fetchUser()
-        //setupCards()
-        //зачем??
         view.layoutSubviews()
         print("DEBUG: handle")
     }
@@ -343,7 +323,6 @@ extension HomeViewController: HomeActionsStackViewDelegate {
 extension HomeViewController: LoginRegisterDelegate {
     func switchAppToNewUser() {
         fetchUser()
-        //fetchUsers()
     }
 }
 

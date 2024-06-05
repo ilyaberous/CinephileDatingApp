@@ -10,7 +10,6 @@
 		049EB0622BC889700040FFF8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0612BC889700040FFF8 /* CardView.swift */; };
 		04C872962BC5BAF900F954DB /* HomeNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C872952BC5BAF900F954DB /* HomeNavigationStackView.swift */; };
 		04C872982BC5D59400F954DB /* HomeActionsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C872972BC5D59400F954DB /* HomeActionsStackView.swift */; };
-		04C8729B2BC5D8EE00F954DB /* HomeVerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8729A2BC5D8EE00F954DB /* HomeVerticalStackView.swift */; };
 		092098EC2BC1B0A500DAA0C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098EB2BC1B0A500DAA0C7 /* AppDelegate.swift */; };
 		092098EE2BC1B0A500DAA0C7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098ED2BC1B0A500DAA0C7 /* SceneDelegate.swift */; };
 		092098F02BC1B0A500DAA0C7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098EF2BC1B0A500DAA0C7 /* HomeViewController.swift */; };
@@ -20,7 +19,6 @@
 		0928F7D82BD40EC700087575 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0928F7D42BD40E9400087575 /* Montserrat-Medium.ttf */; };
 		0928F7DA2BD428C500087575 /* FilmShotImageWithDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0928F7D92BD428C500087575 /* FilmShotImageWithDescriptionView.swift */; };
 		09305DCC2BD3FC510018AE92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09305DCB2BD3FC510018AE92 /* Constants.swift */; };
-		0935AB2A2BD8477D00357FF0 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935AB292BD8477D00357FF0 /* ProfileSettingsViewController.swift */; };
 		0935AB2C2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935AB2B2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift */; };
 		0935AB302BD871CE00357FF0 /* ProfileSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935AB2F2BD871CE00357FF0 /* ProfileSettingsViewModel.swift */; };
 		0935E3422BFEAA18003B4F94 /* SearchFilmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935E3412BFEAA18003B4F94 /* SearchFilmsViewController.swift */; };
@@ -41,12 +39,10 @@
 		09381F0A2BFE0B4700BB4410 /* BioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09381F092BFE0B4700BB4410 /* BioCell.swift */; };
 		09381F0C2BFE0E0900BB4410 /* NameAgeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09381F0B2BFE0E0900BB4410 /* NameAgeCell.swift */; };
 		09381F0E2BFE0E2600BB4410 /* AgeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09381F0D2BFE0E2600BB4410 /* AgeSliderCell.swift */; };
-		09381F102BFE2C6300BB4410 /* UITextField+textFieldWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09381F0F2BFE2C6300BB4410 /* UITextField+textFieldWithInsets.swift */; };
 		09385C432BCD952E002A58FB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09385C422BCD952E002A58FB /* User.swift */; };
 		09385C472BCD9A56002A58FB /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09385C462BCD9A56002A58FB /* CardViewModel.swift */; };
 		0949CEEB2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0949CEEA2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift */; };
 		094CC6132BD97A28005A5CC0 /* ProfileSettingsFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6122BD97A28005A5CC0 /* ProfileSettingsFooter.swift */; };
-		094CC6152BD9A4B5005A5CC0 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6142BD9A4B5005A5CC0 /* UserProfileViewController.swift */; };
 		094CC6172BD9A7F3005A5CC0 /* UserProfileCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6162BD9A7F3005A5CC0 /* UserProfileCollectionCell.swift */; };
 		094CC6192BD9B57A005A5CC0 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC6182BD9B57A005A5CC0 /* UserProfileViewModel.swift */; };
 		094CC61B2BD9B9B5005A5CC0 /* SegmentedBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094CC61A2BD9B9B5005A5CC0 /* SegmentedBarView.swift */; };
@@ -68,6 +64,12 @@
 		09A04ECB2BD05AFC00DC0C28 /* LogRegButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A04ECA2BD05AFC00DC0C28 /* LogRegButton.swift */; };
 		09A04ECE2BD0744D00DC0C28 /* UIViewController+hideKeyboardWhenTappedAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A04ECD2BD0744D00DC0C28 /* UIViewController+hideKeyboardWhenTappedAround.swift */; };
 		09B87C9D2C0C8E3400AF62C1 /* FavoriteFilmsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B87C9C2C0C8E3400AF62C1 /* FavoriteFilmsViewModel.swift */; };
+		09C279EB2C0F837700038E90 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C279EA2C0F837700038E90 /* UserProfileViewController.swift */; };
+		09C279ED2C0FDF9400038E90 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C279EC2C0FDF9400038E90 /* PaddingLabel.swift */; };
+		09C279F12C0FE2EC00038E90 /* UserProfileInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C279F02C0FE2EC00038E90 /* UserProfileInfoTableCell.swift */; };
+		09C279F32C0FE6B700038E90 /* UserProfileBioTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C279F22C0FE6B700038E90 /* UserProfileBioTableCell.swift */; };
+		09C279F72C0FEA0E00038E90 /* UserProfileFavoriteFilmsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C279F62C0FEA0E00038E90 /* UserProfileFavoriteFilmsTableCell.swift */; };
+		09C279F92C0FF54100038E90 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C279F82C0FF54100038E90 /* ProfileSettingsViewController.swift */; };
 		09D1F0FC2C0A2312007664A3 /* MessagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D1F0FB2C0A2312007664A3 /* MessagesService.swift */; };
 		09E1109A2BD1E2F3003A8EA8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E110992BD1E2F3003A8EA8 /* LoginViewController.swift */; };
 		09E212462BD71F8A002C86AF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E212452BD71F8A002C86AF /* AuthService.swift */; };
@@ -80,7 +82,6 @@
 		049EB0612BC889700040FFF8 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		04C872952BC5BAF900F954DB /* HomeNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationStackView.swift; sourceTree = "<group>"; };
 		04C872972BC5D59400F954DB /* HomeActionsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeActionsStackView.swift; sourceTree = "<group>"; };
-		04C8729A2BC5D8EE00F954DB /* HomeVerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVerticalStackView.swift; sourceTree = "<group>"; };
 		06ED4AFAC0909503CBA76E75 /* Pods-CinephileDatingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinephileDatingApp.release.xcconfig"; path = "Target Support Files/Pods-CinephileDatingApp/Pods-CinephileDatingApp.release.xcconfig"; sourceTree = "<group>"; };
 		092098E82BC1B0A500DAA0C7 /* CinephileDatingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CinephileDatingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		092098EB2BC1B0A500DAA0C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,7 +93,6 @@
 		0928F7D52BD40E9900087575 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		0928F7D92BD428C500087575 /* FilmShotImageWithDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmShotImageWithDescriptionView.swift; sourceTree = "<group>"; };
 		09305DCB2BD3FC510018AE92 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		0935AB292BD8477D00357FF0 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		0935AB2B2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsHeaderView.swift; sourceTree = "<group>"; };
 		0935AB2F2BD871CE00357FF0 /* ProfileSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewModel.swift; sourceTree = "<group>"; };
 		0935E3412BFEAA18003B4F94 /* SearchFilmsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilmsViewController.swift; sourceTree = "<group>"; };
@@ -113,12 +113,10 @@
 		09381F092BFE0B4700BB4410 /* BioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioCell.swift; sourceTree = "<group>"; };
 		09381F0B2BFE0E0900BB4410 /* NameAgeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameAgeCell.swift; sourceTree = "<group>"; };
 		09381F0D2BFE0E2600BB4410 /* AgeSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSliderCell.swift; sourceTree = "<group>"; };
-		09381F0F2BFE2C6300BB4410 /* UITextField+textFieldWithInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+textFieldWithInsets.swift"; sourceTree = "<group>"; };
 		09385C422BCD952E002A58FB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		09385C462BCD9A56002A58FB /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		0949CEEA2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift"; sourceTree = "<group>"; };
 		094CC6122BD97A28005A5CC0 /* ProfileSettingsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsFooter.swift; sourceTree = "<group>"; };
-		094CC6142BD9A4B5005A5CC0 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		094CC6162BD9A7F3005A5CC0 /* UserProfileCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionCell.swift; sourceTree = "<group>"; };
 		094CC6182BD9B57A005A5CC0 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		094CC61A2BD9B9B5005A5CC0 /* SegmentedBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedBarView.swift; sourceTree = "<group>"; };
@@ -141,6 +139,12 @@
 		09A04ECA2BD05AFC00DC0C28 /* LogRegButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogRegButton.swift; sourceTree = "<group>"; };
 		09A04ECD2BD0744D00DC0C28 /* UIViewController+hideKeyboardWhenTappedAround.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+hideKeyboardWhenTappedAround.swift"; sourceTree = "<group>"; };
 		09B87C9C2C0C8E3400AF62C1 /* FavoriteFilmsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFilmsViewModel.swift; sourceTree = "<group>"; };
+		09C279EA2C0F837700038E90 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		09C279EC2C0FDF9400038E90 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		09C279F02C0FE2EC00038E90 /* UserProfileInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInfoTableCell.swift; sourceTree = "<group>"; };
+		09C279F22C0FE6B700038E90 /* UserProfileBioTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileBioTableCell.swift; sourceTree = "<group>"; };
+		09C279F62C0FEA0E00038E90 /* UserProfileFavoriteFilmsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileFavoriteFilmsTableCell.swift; sourceTree = "<group>"; };
+		09C279F82C0FF54100038E90 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		09D1F0FB2C0A2312007664A3 /* MessagesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesService.swift; sourceTree = "<group>"; };
 		09E110992BD1E2F3003A8EA8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		09E212452BD71F8A002C86AF /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -259,11 +263,11 @@
 			children = (
 				0999249D2BFAA25900C722AB /* Messenger */,
 				09BCD3592BF26E7000C8FCD0 /* Auth */,
+				09C279F82C0FF54100038E90 /* ProfileSettingsViewController.swift */,
 				092098EF2BC1B0A500DAA0C7 /* HomeViewController.swift */,
-				0935AB292BD8477D00357FF0 /* ProfileSettingsViewController.swift */,
-				094CC6142BD9A4B5005A5CC0 /* UserProfileViewController.swift */,
 				099924992BFA703400C722AB /* MatchViewController.swift */,
 				0935E3412BFEAA18003B4F94 /* SearchFilmsViewController.swift */,
+				09C279EA2C0F837700038E90 /* UserProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -325,7 +329,6 @@
 				09BCD3582BF268E500C8FCD0 /* Card */,
 				04C872952BC5BAF900F954DB /* HomeNavigationStackView.swift */,
 				04C872972BC5D59400F954DB /* HomeActionsStackView.swift */,
-				04C8729A2BC5D8EE00F954DB /* HomeVerticalStackView.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -361,6 +364,9 @@
 			children = (
 				0995261D2C0E884B00DDB881 /* UserProfileHeader.swift */,
 				094CC6162BD9A7F3005A5CC0 /* UserProfileCollectionCell.swift */,
+				09C279F02C0FE2EC00038E90 /* UserProfileInfoTableCell.swift */,
+				09C279F22C0FE6B700038E90 /* UserProfileBioTableCell.swift */,
+				09C279F62C0FEA0E00038E90 /* UserProfileFavoriteFilmsTableCell.swift */,
 			);
 			path = UserProfileScreen;
 			sourceTree = "<group>";
@@ -387,6 +393,7 @@
 		09A04EC72BCED7E000DC0C28 /* CustomStandartViews */ = {
 			isa = PBXGroup;
 			children = (
+				09C279EC2C0FDF9400038E90 /* PaddingLabel.swift */,
 				09A04EC82BCED88300DC0C28 /* CustomTextField.swift */,
 				09A04ECA2BD05AFC00DC0C28 /* LogRegButton.swift */,
 			);
@@ -398,7 +405,6 @@
 			children = (
 				09A04ECD2BD0744D00DC0C28 /* UIViewController+hideKeyboardWhenTappedAround.swift */,
 				0949CEEA2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift */,
-				09381F0F2BFE2C6300BB4410 /* UITextField+textFieldWithInsets.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -563,12 +569,13 @@
 				0935E3592BFEC26F003B4F94 /* Names.swift in Sources */,
 				09A04EC52BCED70800DC0C28 /* RegisterViewController.swift in Sources */,
 				0935E3572BFEC26F003B4F94 /* Film.swift in Sources */,
-				04C8729B2BC5D8EE00F954DB /* HomeVerticalStackView.swift in Sources */,
 				09E1109A2BD1E2F3003A8EA8 /* LoginViewController.swift in Sources */,
 				09B87C9D2C0C8E3400AF62C1 /* FavoriteFilmsViewModel.swift in Sources */,
 				099924A42BFAB1A800C722AB /* MatchesHeader.swift in Sources */,
 				0935E35D2BFEC26F003B4F94 /* Genres.swift in Sources */,
+				09C279F92C0FF54100038E90 /* ProfileSettingsViewController.swift in Sources */,
 				09305DCC2BD3FC510018AE92 /* Constants.swift in Sources */,
+				09C279F12C0FE2EC00038E90 /* UserProfileInfoTableCell.swift in Sources */,
 				04C872982BC5D59400F954DB /* HomeActionsStackView.swift in Sources */,
 				0935E3442BFEADC4003B4F94 /* SearchFilmCell.swift in Sources */,
 				0986CE142BD6957A00F3A019 /* AuthViewModel.swift in Sources */,
@@ -576,32 +583,33 @@
 				0935E3542BFEC26F003B4F94 /* Rating.swift in Sources */,
 				0935E3582BFEC26F003B4F94 /* Logo.swift in Sources */,
 				094CC61B2BD9B9B5005A5CC0 /* SegmentedBarView.swift in Sources */,
-				0935AB2A2BD8477D00357FF0 /* ProfileSettingsViewController.swift in Sources */,
 				09E212462BD71F8A002C86AF /* AuthService.swift in Sources */,
+				09C279F72C0FEA0E00038E90 /* UserProfileFavoriteFilmsTableCell.swift in Sources */,
 				09E212482BD71FA5002C86AF /* DataService.swift in Sources */,
 				092098F02BC1B0A500DAA0C7 /* HomeViewController.swift in Sources */,
 				099924A12BFAA2C500C722AB /* MessagesViewController.swift in Sources */,
 				099924A82BFABBC700C722AB /* Match.swift in Sources */,
 				09A04ECB2BD05AFC00DC0C28 /* LogRegButton.swift in Sources */,
 				09385C432BCD952E002A58FB /* User.swift in Sources */,
+				09C279ED2C0FDF9400038E90 /* PaddingLabel.swift in Sources */,
 				09381F0C2BFE0E0900BB4410 /* NameAgeCell.swift in Sources */,
 				092098EC2BC1B0A500DAA0C7 /* AppDelegate.swift in Sources */,
 				09EC96552BFBBD6D0030796C /* ChatViewController.swift in Sources */,
 				0935E3482BFEBB47003B4F94 /* KinopoiskAPIService.swift in Sources */,
-				09381F102BFE2C6300BB4410 /* UITextField+textFieldWithInsets.swift in Sources */,
 				0999249A2BFA703400C722AB /* MatchViewController.swift in Sources */,
 				09A04ECE2BD0744D00DC0C28 /* UIViewController+hideKeyboardWhenTappedAround.swift in Sources */,
 				0935E35B2BFEC26F003B4F94 /* Countries.swift in Sources */,
 				0935E3552BFEC26F003B4F94 /* Backdrop.swift in Sources */,
 				099526192C0E5EAC00DDB881 /* FavoriteFilmsStack.swift in Sources */,
-				094CC6152BD9A4B5005A5CC0 /* UserProfileViewController.swift in Sources */,
 				0935E3422BFEAA18003B4F94 /* SearchFilmsViewController.swift in Sources */,
 				09381F0A2BFE0B4700BB4410 /* BioCell.swift in Sources */,
+				09C279EB2C0F837700038E90 /* UserProfileViewController.swift in Sources */,
 				0935E3562BFEC26F003B4F94 /* SearchFilmResponse.swift in Sources */,
 				0935E35C2BFEC26F003B4F94 /* Votes.swift in Sources */,
 				04C872962BC5BAF900F954DB /* HomeNavigationStackView.swift in Sources */,
 				09A04EC92BCED88300DC0C28 /* CustomTextField.swift in Sources */,
 				0935E35E2BFEC26F003B4F94 /* ExternalId.swift in Sources */,
+				09C279F32C0FE6B700038E90 /* UserProfileBioTableCell.swift in Sources */,
 				092098EE2BC1B0A500DAA0C7 /* SceneDelegate.swift in Sources */,
 				0928F7DA2BD428C500087575 /* FilmShotImageWithDescriptionView.swift in Sources */,
 				09D1F0FC2C0A2312007664A3 /* MessagesService.swift in Sources */,

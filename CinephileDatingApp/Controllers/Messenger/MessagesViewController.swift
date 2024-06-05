@@ -18,7 +18,6 @@ class MessagesViewController: UITableViewController {
     
     private var chats = [Chat]() {
         didSet {
-            //print("DEBUG: chats count: \(chats[1].name)")
             tableView.reloadData()
         }
     }
@@ -93,7 +92,6 @@ class MessagesViewController: UITableViewController {
                 print(error)
             case .success(let chats):
                 self?.chats = chats
-                print("DEBUG: chats \(chats.first?.name)")
             }
         }
     }

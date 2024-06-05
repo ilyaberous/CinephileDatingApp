@@ -1,8 +1,8 @@
 //
-//  UserProfileViewController.swift
+//  UserProfileController.swift
 //  CinephileDatingApp
 //
-//  Created by Ilya on 24.04.2024.
+//  Created by Ilya on 04.06.2024.
 //
 
 import UIKit
@@ -12,106 +12,36 @@ protocol UserProfileViewControllerDelegate: AnyObject {
     func profileController(_ controller: UserProfileViewController, didDislikeUser user: User)
 }
 
-class UserProfileViewController: UIViewController {
-    // MARK: - Properties
+class UserProfileViewController: UITableViewController {
     
     weak var delegate: UserProfileViewControllerDelegate?
     
     private let user: User
     
-    private lazy var viewModel = UserProfileViewModel(user: user)
+    lazy private var viewModel = UserProfileViewModel(user: user)
     
     private lazy var collectionView: UICollectionView = {
-        let frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.width + 100)
+        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
         let cv = UICollectionView(frame: frame, collectionViewLayout: layout)
         cv.isPagingEnabled = true
-        cv.delegate = self
         cv.dataSource = self
+        cv.delegate = self
         cv.showsHorizontalScrollIndicator = false
         cv.register(UserProfileCollectionCell.self,
                     forCellWithReuseIdentifier: UserProfileCollectionCell.identifier)
         return cv
     }()
     
+    private lazy var barStackView = SegmentedBarView(numberOfSegments: viewModel.imageCountForProgressBar)
+    
     private lazy var dismissButton: UIButton = {
         let btt = UIButton(type: .system)
         btt.setImage(#imageLiteral(resourceName: "dismiss_down_arrow").withRenderingMode(.alwaysOriginal), for: .normal)
         btt.addTarget(self, action: #selector(dissmisButtonTapped), for: .touchUpInside)
         return btt
-    }()
-    
-    private let infoLabel: UILabel = {
-       let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont(name: Constants.Fonts.Montserrat.bold, size: 32)
-        return label
-    }()
-    
-    private let bioLabel: UILabel = {
-       let label = UILabel()
-        label.numberOfLines = 0
-        label.lineBreakMode = .byCharWrapping
-        label.font = UIFont(name: Constants.Fonts.Montserrat.medium, size: 18)
-        return label
-    }()
-    
-    private let titleForBio: UILabel = {
-       let label = UILabel()
-        label.text = "О себе"
-        label.font = UIFont(name: Constants.Fonts.Montserrat.bold, size: 24)
-        return label
-    }()
-    
-    private lazy var bioSection: UIStackView = {
-       let stack = UIStackView(arrangedSubviews: [titleForBio, bioLabel])
-        stack.axis = .vertical
-        stack.spacing = 8
-        stack.contentMode = .left
-        return stack
-    }()
-    
-    private let favoriteFilms = FavoriteFilmsStack()
-    
-    private let favoriteFilmsTitle: UILabel = {
-       let label = UILabel()
-        label.text = "Любимые фильмы"
-        label.font = UIFont(name: Constants.Fonts.Montserrat.bold, size: 24)
-        return label
-    }()
-    
-    private lazy var favoriteFilmsSection: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [favoriteFilmsTitle, favoriteFilms])
-         stack.axis = .vertical
-         stack.spacing = 16
-         stack.contentMode = .left
-         return stack
-    }()
-    
-    private lazy var stack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [infoLabel, bioSection, favoriteFilmsSection])
-         stack.axis = .vertical
-         stack.spacing = 16
-         stack.contentMode = .left
-         return stack
-    }()
-    
-    private lazy var barStackView = SegmentedBarView(numberOfSegments: viewModel.imageCountForProgressBar)
-    
-    private let container: UIView = {
-        let view = UIView()
-        view.backgroundColor = .red
-        return view
-    }()
-    
-    private let scrollView: UIScrollView = {
-       let sv = UIScrollView()
-        sv.backgroundColor = .green
-//        sv.alwaysBounceVertical = true
-//        sv.showsVerticalScrollIndicator = false
-        return sv
     }()
     
     // MARK: - Lifecycle
@@ -128,54 +58,68 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        loadUserData()
     }
     
     // MARK: - Setup UI
     
     private func setupUI() {
         view.backgroundColor = .white
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .none
         
-        view.addSubview(scrollView)
-        scrollView.snp.makeConstraints { make in make.edges.equalToSuperview() }
-        
-        scrollView.addSubview(container)
-        container.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.width.equalTo(view.frame.width)
-        }
 
-        container.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(self.view.frame.width + 100)
-        }
-
-        configureBarStackView()
-
-        container.addSubview(dismissButton)
-        dismissButton.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 40, height: 40))
-            make.top.equalTo(collectionView.snp.bottom).offset(-20)
-            make.right.equalTo(container).inset(16)
-        }
-
-        container.addSubview(stack)
-        stack.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom).offset(16)
-            make.left.right.equalTo(container).inset(16)
-        }
-
-        favoriteFilms.snp.makeConstraints { make in
-            make.height.equalTo(1000)
-        }
-
-        configureBottomControlls()
+        tableView.tableHeaderView = makeHeaderView()
+        tableView.tableFooterView = makeFooterView()
+        tableView.register(UserProfileInfoTableCell.self, forCellReuseIdentifier: UserProfileInfoTableCell.identifier)
+        tableView.register(UserProfileBioTableCell.self, forCellReuseIdentifier: UserProfileBioTableCell.identifier)
+        tableView.register(UserProfileFavoriteFilmsTableCell.self, forCellReuseIdentifier: UserProfileFavoriteFilmsTableCell.identifier)
     }
     
-    private func configureBottomControlls() {
+    private func makeHeaderView() -> UIView {
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width))
+        header.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        header.addSubview(barStackView)
+        barStackView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview().inset(8)
+            make.height.equalTo(4)
+        }
+        
+        header.addSubview(dismissButton)
+        dismissButton.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 40, height: 40))
+            make.top.equalTo(header.snp.bottom).offset(-20)
+            make.right.equalToSuperview().inset(16)
+        }
+    
+        return header
+    }
+    
+    private func makeFooterView() -> UIView {
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100))
+        
+        let stack = UIStackView(arrangedSubviews: makeBottomControlButtons())
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.spacing = -32
+        
+        footer.addSubview(stack)
+        
+        stack.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 300, height: 80))
+            make.centerX.equalTo(footer.snp.centerX)
+            make.centerY.equalTo(footer.snp.centerY)
+        }
+        
+        return footer
+    }
+    
+    private func makeBottomControlButtons() -> [UIButton] {
         lazy var dislike: UIButton = {
-          let btt = createButton(withImage: #imageLiteral(resourceName: "dismiss_circle"))
+            let btt = createButton(withImage: #imageLiteral(resourceName: "dismiss_circle"))
             btt.addTarget(self, action: #selector(dislikeButtonTapped), for: .touchUpInside)
             return btt
         }()
@@ -187,33 +131,12 @@ class UserProfileViewController: UIViewController {
         }()
         
         lazy var like: UIButton = {
-           let btt = createButton(withImage: #imageLiteral(resourceName: "like_circle"))
+            let btt = createButton(withImage: #imageLiteral(resourceName: "like_circle"))
             btt.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
             return btt
         }()
         
-        let stack = UIStackView(arrangedSubviews: [dislike, superLike, like])
-        stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        stack.spacing = -32
-        
-        container.addSubview(stack)
-        
-        stack.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 300, height: 80))
-            make.centerX.equalTo(container.snp.centerX)
-            make.bottom.equalToSuperview().offset(-34)
-        }
-    }
-    
-    private func configureBarStackView() {
-        container.addSubview(barStackView)
-        barStackView.snp.makeConstraints { make in
-            make.left.right.equalTo(collectionView).offset(8)
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(4)
-        }
-        
+        return [dislike, superLike, like]
     }
     
     private func createButton(withImage img: UIImage) -> UIButton {
@@ -221,14 +144,6 @@ class UserProfileViewController: UIViewController {
         btt.setImage(img.withRenderingMode(.alwaysOriginal), for: .normal)
         btt.imageView?.contentMode = .scaleAspectFill
         return btt
-    }
-    
-    // MARK: - Helpers
-    
-    private func loadUserData() {
-        infoLabel.attributedText = viewModel.userDetailsAttributedString
-        bioLabel.text = viewModel.bio
-        favoriteFilms.configure(with: FavoriteFilmsViewModel(user: user))
     }
     
     // MARK: - Selectors
@@ -249,6 +164,83 @@ class UserProfileViewController: UIViewController {
         delegate?.profileController(self, didLikeUser: user)
     }
 }
+    
+    
+
+// MARK: - TableView DataSource Methods
+
+extension UserProfileViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let section = UserProfileSections(rawValue: indexPath.section) else { return UITableViewCell() }
+        let viewModel = UserProfileViewModel(user: user)
+        
+        switch section {
+        case .info:
+            let cell = UserProfileInfoTableCell()
+            cell.viewModel = viewModel
+            return cell
+        case .bio:
+            let cell = UserProfileBioTableCell()
+            cell.viewModel = viewModel
+            return cell
+        case .favoriteFilms:
+            let cell = UserProfileFavoriteFilmsTableCell()
+            cell.viewModel = viewModel
+            return cell
+        }
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return UserProfileSections.allCases.count
+    }
+}
+
+// MARK: - TableViewDelegate Methods
+
+extension UserProfileViewController {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard let section = UserProfileSections(rawValue: section) else { return 0 }
+        switch section {
+            case .info: return 0
+            case .bio, .favoriteFilms: return 40
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let section = UserProfileSections(rawValue: section) else { return nil }
+        return section.description
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let section = UserProfileSections(rawValue: indexPath.section) else { return 0 }
+        switch section {
+        case .info:
+            return 44
+        case .bio:
+            return UITableView.automaticDimension
+        case .favoriteFilms:
+            return ((self.view.frame.width - 32) / 4) * 1.7
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerInSection = PaddingLabel(withInsets: 0, 0, 16, 16)
+        headerInSection.font = UIFont(name: Constants.Fonts.Montserrat.bold, size: 22)
+        
+        guard let section = UserProfileSections(rawValue: section) else { return nil }
+        headerInSection.text = section.description
+        switch section {
+        case .info:
+            return nil
+        case .bio, .favoriteFilms:
+            return headerInSection
+        }
+    }
+}
 
 // MARK: - CollectionView DataSource Methods
 
@@ -267,23 +259,11 @@ extension UserProfileViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - CollectionView Delegate Methods
-
-extension UserProfileViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard viewModel.imageCountForProgressBar != 0 else {
-            return
-        }
-        barStackView.setHighlighted(index: indexPath.row)
-        print(indexPath.row)
-    }
-}
-
-// MARK: - CollectionView DelegateFlowLayout Methods
+// MARK: - CollectionViewDelegate FlowLayout Methods
 
 extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width, height: view.frame.width + 100)
+        return .init(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -296,5 +276,17 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+}
+
+// MARK: - CollectionView Delegate Methods
+
+extension UserProfileViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard viewModel.imageCountForProgressBar != 0 else {
+            return
+        }
+        
+        barStackView.setHighlighted(index: indexPath.row)
     }
 }
