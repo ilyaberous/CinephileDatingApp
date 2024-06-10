@@ -2,7 +2,7 @@
 Obscura - приложение для знакомства синефилов, киноманов и просто любителей кино
 
 демонстрация работы:
-https://youtu.be/PgFrG6IrM0g?si=8j_1A0unvZf3PySj
+https://youtu.be/PgFrG6IrM0g?si=8j_1A0unvZf3PySj (смотреть на 2x)
 
 ## Стэк
 Swift, UIKit, MVVM, CocoaPods, Firebase (Cloud Firstore, Cloud Storage, Auth), SnapKit, MessageKit, SDWebImage, URLSession
