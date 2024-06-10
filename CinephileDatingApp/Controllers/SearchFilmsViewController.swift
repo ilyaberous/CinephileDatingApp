@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SearchFilmsViewControllerDelegate: AnyObject {
-    func searchFilmsController(_ controller: SearchFilmsViewController, wantsToUpdateFavoriteFilmsWith filmURL: String?)
+    func searchFilmsController(_ controller: SearchFilmsViewController, wantsToUpdateFavoriteFilmsWith filmTuple: (url:String?, imgURL:String?))
 }
 
 class SearchFilmsViewController: UIViewController {
@@ -70,7 +70,9 @@ extension SearchFilmsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let item = films[indexPath.item]
-        delegate?.searchFilmsController(self, wantsToUpdateFavoriteFilmsWith: item.poster?.previewUrl)
+        let filmURL = KinopoiskAPIService.convertFilmIdToURLString(id: item.id)
+        let favoriteFilm = (filmURL, item.poster?.previewUrl)
+        delegate?.searchFilmsController(self, wantsToUpdateFavoriteFilmsWith: favoriteFilm)
     }
 }
 

@@ -42,6 +42,13 @@ struct UserProfileViewModel {
         })
     }
     
+    var favoriteFilmsImagesURLs: [URL] {
+        return user.favoriteFilmsImagesURLs.compactMap ({
+            guard let url = URL(string: $0) else { return nil }
+            return url
+        })
+    }
+    
     var imageCountForProgressBar: Int {
         return user.profileImageURLs.count != 1 ? user.profileImageURLs.count : 0
     }

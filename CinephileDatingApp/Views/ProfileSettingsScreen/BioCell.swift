@@ -24,7 +24,7 @@ class BioCell: UITableViewCell {
         tv.delegate = self
         tv.font = .systemFont(ofSize: 16)
         tv.textColor = .black
-        tv.autocapitalizationType = .words
+        tv.autocapitalizationType = .none
         tv.isScrollEnabled = false
         return tv
     }()

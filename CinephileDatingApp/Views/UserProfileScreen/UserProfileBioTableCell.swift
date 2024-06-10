@@ -29,6 +29,7 @@ class UserProfileBioTableCell: UITableViewCell {
     init() {
         super.init(style: .default, reuseIdentifier: UserProfileInfoTableCell.identifier)
         setupUI()
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {

@@ -40,6 +40,7 @@ struct AuthService {
                             "name": credentials.name,
                             "imageURLs": [imgURL],
                             "favoriteFilmsURLs": Array(repeating: "", count: 4),
+                            "favoriteFilmsImagesURLs": Array(repeating: "", count: 4),
                             "uid": uid,
                             "age": 18] as [String: Any]
                 

@@ -189,6 +189,7 @@ extension UserProfileViewController {
             return cell
         case .favoriteFilms:
             let cell = UserProfileFavoriteFilmsTableCell()
+            cell.delegate = self
             cell.viewModel = viewModel
             return cell
         }
@@ -288,5 +289,17 @@ extension UserProfileViewController: UICollectionViewDelegate {
         }
         
         barStackView.setHighlighted(index: indexPath.row)
+    }
+}
+
+// MARK: - FilmStackDelegate Methods
+
+extension UserProfileViewController: UserProfileFavoriteFilmsCellDelegate {
+    func favoriteFilmCell(_ cell: UserProfileFavoriteFilmsTableCell, wantsToPresentFilmPageViewControllerForFilmCardWith tag: Int) {
+        let filmURL = user.favoriteFilmsURLs[tag]
+        let wv = FilmPageViewController(filmURL: filmURL)
+        wv.modalPresentationStyle = .pageSheet
+        show(wv, sender: nil)
+        print("DEBUG: film page present!!")
     }
 }

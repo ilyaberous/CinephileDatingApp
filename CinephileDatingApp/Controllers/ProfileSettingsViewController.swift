@@ -262,11 +262,10 @@ extension ProfileSettingsViewController: FavoriteFilmsCellDelegate {
 // MARK: - SearchViewController Delegate Methods
 
 extension ProfileSettingsViewController: SearchFilmsViewControllerDelegate {
-    func searchFilmsController(_ controller: SearchFilmsViewController, wantsToUpdateFavoriteFilmsWith filmURL: String?) {
-        guard let filmURL else {
-            return
-        }
-        user.favoriteFilmsURLs[currentFilmCardTag] = filmURL
+    func searchFilmsController(_ controller: SearchFilmsViewController, wantsToUpdateFavoriteFilmsWith filmTuple: (url: String?, imgURL: String?)) {
+        guard let url = filmTuple.url, let poster = filmTuple.imgURL else { return }
+        user.favoriteFilmsURLs[currentFilmCardTag] = url
+        user.favoriteFilmsImagesURLs[currentFilmCardTag] = poster
         tableView.reloadData()
         controller.dismiss(animated: true)
     }

@@ -28,7 +28,8 @@ class LoginViewModel: AuthenticationViewModel {
     var password: String?
     
     var formIsValid: Bool {
-        return email?.isEmpty == false && password?.isEmpty == false
+        return email?.isEmpty == false && password?.isEmpty == false &&
+        password!.count >= 6
     }
     
     func isButtonEnabledOrDisenabled() {
@@ -52,6 +53,7 @@ class RegisterViewModel: AuthenticationViewModel {
         return name?.isEmpty == false &&
                email?.isEmpty == false &&
                password?.isEmpty == false &&
+               password!.count >= 6 &&
                img != UIImage(named: "avatar_form")?.withRenderingMode(.alwaysOriginal) &&
                img != nil
     }

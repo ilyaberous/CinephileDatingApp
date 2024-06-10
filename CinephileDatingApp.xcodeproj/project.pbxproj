@@ -10,6 +10,7 @@
 		049EB0622BC889700040FFF8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0612BC889700040FFF8 /* CardView.swift */; };
 		04C872962BC5BAF900F954DB /* HomeNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C872952BC5BAF900F954DB /* HomeNavigationStackView.swift */; };
 		04C872982BC5D59400F954DB /* HomeActionsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C872972BC5D59400F954DB /* HomeActionsStackView.swift */; };
+		090CF4372C164636005A9D68 /* FilmPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090CF4362C164636005A9D68 /* FilmPageViewController.swift */; };
 		092098EC2BC1B0A500DAA0C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098EB2BC1B0A500DAA0C7 /* AppDelegate.swift */; };
 		092098EE2BC1B0A500DAA0C7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098ED2BC1B0A500DAA0C7 /* SceneDelegate.swift */; };
 		092098F02BC1B0A500DAA0C7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092098EF2BC1B0A500DAA0C7 /* HomeViewController.swift */; };
@@ -83,6 +84,7 @@
 		04C872952BC5BAF900F954DB /* HomeNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationStackView.swift; sourceTree = "<group>"; };
 		04C872972BC5D59400F954DB /* HomeActionsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeActionsStackView.swift; sourceTree = "<group>"; };
 		06ED4AFAC0909503CBA76E75 /* Pods-CinephileDatingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinephileDatingApp.release.xcconfig"; path = "Target Support Files/Pods-CinephileDatingApp/Pods-CinephileDatingApp.release.xcconfig"; sourceTree = "<group>"; };
+		090CF4362C164636005A9D68 /* FilmPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmPageViewController.swift; sourceTree = "<group>"; };
 		092098E82BC1B0A500DAA0C7 /* CinephileDatingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CinephileDatingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		092098EB2BC1B0A500DAA0C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		092098ED2BC1B0A500DAA0C7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				099924992BFA703400C722AB /* MatchViewController.swift */,
 				0935E3412BFEAA18003B4F94 /* SearchFilmsViewController.swift */,
 				09C279EA2C0F837700038E90 /* UserProfileViewController.swift */,
+				090CF4362C164636005A9D68 /* FilmPageViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				09381F0E2BFE0E2600BB4410 /* AgeSliderCell.swift in Sources */,
 				0935AB2C2BD84B1F00357FF0 /* ProfileSettingsHeaderView.swift in Sources */,
 				09385C472BCD9A56002A58FB /* CardViewModel.swift in Sources */,
+				090CF4372C164636005A9D68 /* FilmPageViewController.swift in Sources */,
 				0949CEEB2BD54CD9008A5C27 /* UITapGestureRecpgnizer+didTapAttributedtextInLabel.swift in Sources */,
 				094CC6172BD9A7F3005A5CC0 /* UserProfileCollectionCell.swift in Sources */,
 				0935AB302BD871CE00357FF0 /* ProfileSettingsViewModel.swift in Sources */,

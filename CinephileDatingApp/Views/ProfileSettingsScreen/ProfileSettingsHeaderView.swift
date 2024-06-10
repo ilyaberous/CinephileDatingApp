@@ -76,7 +76,7 @@ class ProfileSettingsHeaderView: UIView {
     
     private func makePhotoButton(_ index: Int) -> UIButton {
         let btt = UIButton(type: .system)
-        btt.setImage(UIImage(named: "avatar_form")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        btt.setBackgroundImage(UIImage(named: "photoBack")?.withRenderingMode(.alwaysOriginal), for: .normal)
         btt.addTarget(self, action: #selector(photoButtonTapped), for: .touchUpInside)
         btt.layer.cornerRadius = 10
         btt.clipsToBounds = true

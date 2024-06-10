@@ -51,4 +51,10 @@ class KinopoiskAPIService {
         }
         task.resume()
     }
+    
+    static func convertFilmIdToURLString(id: Int?) -> String {
+        guard let id = id else { return "" }
+        let baseURL = "https://kinopoisk.ru/film/"
+        return baseURL + "\(id)"
+    }
 }

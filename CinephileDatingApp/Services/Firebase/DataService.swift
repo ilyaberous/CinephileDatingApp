@@ -80,7 +80,8 @@ struct DataService {
                     "minSeekingAge": user.minSeekingAge,
                     "maxSeekingAge": user.maxSeekingAge,
                     "imageURLs": user.profileImageURLs,
-                    "favoriteFilmsURLs": user.favoriteFilmsURLs] as [String: Any]
+                    "favoriteFilmsURLs": user.favoriteFilmsURLs,
+                    "favoriteFilmsImagesURLs": user.favoriteFilmsImagesURLs] as [String: Any]
         
         Constants.Firebase.COLLECTION_USERS.document(user.uid).setData(data, completion: completion)
     }

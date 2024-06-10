@@ -19,7 +19,7 @@ class FavoriteFilmsStack: UIStackView {
     private lazy var film1: UIButton = {
         let btt = UIButton()
         btt.imageView?.contentMode = .scaleAspectFill
-        btt.backgroundColor = .orange
+        btt.setBackgroundImage(UIImage(named: "filmBack")?.withRenderingMode(.alwaysOriginal), for: .normal)
         btt.addTarget(self, action: #selector(filmTapped(sender:)), for: .touchUpInside)
         btt.tag = 0
         return btt
@@ -28,7 +28,7 @@ class FavoriteFilmsStack: UIStackView {
     private lazy var film2: UIButton = {
         let btt = UIButton()
         btt.imageView?.contentMode = .scaleAspectFill
-        btt.backgroundColor = .orange
+        btt.setBackgroundImage(UIImage(named: "filmBack")?.withRenderingMode(.alwaysOriginal), for: .normal)
         btt.addTarget(self, action: #selector(filmTapped(sender:)), for: .touchUpInside)
         btt.tag = 1
         return btt
@@ -37,7 +37,7 @@ class FavoriteFilmsStack: UIStackView {
     private lazy var film3: UIButton = {
         let btt = UIButton()
         btt.imageView?.contentMode = .scaleAspectFill
-        btt.backgroundColor = .orange
+        btt.setBackgroundImage(UIImage(named: "filmBack")?.withRenderingMode(.alwaysOriginal), for: .normal)
         btt.addTarget(self, action: #selector(filmTapped(sender:)), for: .touchUpInside)
         btt.tag = 2
         return btt
@@ -46,7 +46,7 @@ class FavoriteFilmsStack: UIStackView {
     private lazy var film4: UIButton = {
         let btt = UIButton()
         btt.imageView?.contentMode = .scaleAspectFill
-        btt.backgroundColor = .orange
+        btt.setBackgroundImage(UIImage(named: "filmBack")?.withRenderingMode(.alwaysOriginal), for: .normal)
         btt.addTarget(self, action: #selector(filmTapped(sender:)), for: .touchUpInside)
         btt.tag = 3
         return btt
@@ -75,6 +75,7 @@ class FavoriteFilmsStack: UIStackView {
     
     @objc private func filmTapped(sender: UIButton) {
         delegate?.favoriteFilmsStack(self, didTapFilmCard: sender.tag)
+        print("DEBUG: film page present!!")
     }
     
     func configure(with viewModel: FavoriteFilmsViewModel) {
@@ -82,16 +83,16 @@ class FavoriteFilmsStack: UIStackView {
             guard let button = button as? UIButton else {
                 return
             }
-            button.sd_setImage(with: URL(string: viewModel.filmsURLs[button.tag]), for: .normal)
+            button.sd_setImage(with: URL(string: viewModel.filmsImagesURLs[button.tag]), for: .normal)
         }
     }
     
-    func configure(with filmsURLs: [URL]) {
+    func configure(with viewModel: UserProfileViewModel) {
         for button in stack.subviews {
             guard let button = button as? UIButton else {
                 return
             }
-            button.sd_setImage(with: filmsURLs[button.tag], for: .normal)
+            button.sd_setImage(with: viewModel.favoriteFilmsImagesURLs[button.tag], for: .normal)
         }
     }
 }
